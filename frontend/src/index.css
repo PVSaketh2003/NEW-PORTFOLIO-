@@ -6,45 +6,47 @@
   /* Light theme default tokens */
   :root {
     color-scheme: light;
-    --bg-primary: #F7F8FA;
+    --bg-primary: #F8FAFC;
     --bg-surface: #FFFFFF;
     --bg-card: #FFFFFF;
-    --bg-elevated: #F1F4F9;
+    --bg-elevated: #F1F5F9;
+    --bg-interactive: #E2E8F0;
     --bg-muted: #E2E8F0;
-    --text-primary: #172033;
-    --text-secondary: #566174;
-    --text-muted: #8896AB;
-    --border-color: #E0E5EC;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --border-color: #E2E8F0;
     --border-hover: #CBD5E1;
-    --accent-color: #087EA4;
-    --accent-hover: #06698A;
-    --accent-light: rgba(8, 126, 164, 0.08);
+    --accent-color: #0284C7;
+    --accent-hover: #0369A1;
+    --accent-light: rgba(2, 132, 199, 0.08);
     --accent-text: #FFFFFF;
     --accent-secondary: #0D9488;
     --card-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
     --card-shadow-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.09), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
   }
 
-  /* Dark theme overrides */
+  /* Dark theme overrides - Luxurious editorial palette */
   html.dark {
     color-scheme: dark;
-    --bg-primary: #0B0D12;
-    --bg-surface: #111722;
-    --bg-card: #151D2A;
-    --bg-elevated: #1B2433;
-    --bg-muted: #242F42;
-    --text-primary: #F3F5F9;
-    --text-secondary: #A8B2C1;
-    --text-muted: #6B7A90;
-    --border-color: #293446;
-    --border-hover: #3D4D65;
-    --accent-color: #64C7F2;
-    --accent-hover: #7BD1F5;
-    --accent-light: rgba(100, 199, 242, 0.12);
-    --accent-text: #0B0D12;
-    --accent-secondary: #7CE0C3;
-    --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.25);
-    --card-shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(0, 0, 0, 0.35);
+    --bg-primary: #0A0D14;
+    --bg-surface: #0E1420;
+    --bg-card: #121A28;
+    --bg-elevated: #162030;
+    --bg-interactive: #182235;
+    --bg-muted: #1E2B3E;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --border-color: rgba(166, 187, 220, 0.16);
+    --border-hover: rgba(117, 207, 255, 0.4);
+    --accent-color: #75CFFF;
+    --accent-hover: #98DCFF;
+    --accent-light: rgba(117, 207, 255, 0.14);
+    --accent-text: #0A0D14;
+    --accent-secondary: #8FE3CC;
+    --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 8px -1px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.7), 0 0 24px -2px rgba(117, 207, 255, 0.2);
   }
 
   body {
@@ -76,7 +78,7 @@
   .card-surface {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
+    border-radius: 0.875rem;
     box-shadow: var(--card-shadow);
     transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                 box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 

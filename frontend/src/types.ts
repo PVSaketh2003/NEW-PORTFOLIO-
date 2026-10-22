@@ -23,6 +23,19 @@ export interface Experience {
   technologies: string[];
 }
 
+export interface Internship {
+  id: number;
+  role: string;
+  company: string;
+  location: string;
+  duration: string;
+  division?: string;
+  summary?: string;
+  highlights: string[];
+  technologies: string[];
+  award?: string;
+}
+
 export interface Project {
   id: number;
   title: string;

@@ -18,13 +18,12 @@
       (function() {
         try {
           var saved = localStorage.getItem('theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (saved === 'dark' || (!saved && prefersDark)) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.style.colorScheme = 'dark';
-          } else {
+          if (saved === 'light') {
             document.documentElement.classList.remove('dark');
             document.documentElement.style.colorScheme = 'light';
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
           }
         } catch (e) {}
       })();

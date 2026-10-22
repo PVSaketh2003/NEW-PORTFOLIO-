@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, ChevronRight, X, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, ChevronRight, X, Sparkles } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectsSectionProps {
@@ -8,43 +8,46 @@ interface ProjectsSectionProps {
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState<'All' | 'Featured' | 'Commercial' | 'Research'>('All');
+  const [activeTab, setActiveTab] = useState<'All' | 'Featured' | 'Machine Learning' | 'Research'>('All');
 
   const filteredProjects = projects.filter((p) => {
     if (activeTab === 'All') return true;
     if (activeTab === 'Featured') return p.isFeatured;
-    if (activeTab === 'Commercial') return p.category.includes('Commercial') || p.category.includes('Quality');
-    if (activeTab === 'Research') return p.category.includes('Research') || p.category.includes('Machine Learning');
+    if (activeTab === 'Machine Learning') return p.category.includes('Machine Learning') || p.category.includes('Group');
+    if (activeTab === 'Research') return p.category.includes('Research');
     return true;
   });
 
+  const featuredProject = projects.find((p) => p.isFeatured);
+  const regularProjects = filteredProjects.filter((p) => p.id !== (activeTab === 'All' && featuredProject ? featuredProject.id : 0));
+
   return (
-    <section id="projects" className="py-16 lg:py-24 bg-theme-surface border-b border-theme-border transition-colors duration-300">
+    <section id="projects" className="py-16 lg:py-24 bg-theme-bg border-b border-theme-border transition-colors duration-300 relative">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-theme-border">
+        {/* Section Header with Filter Pills */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-theme-border gap-4">
           <div>
-            <div className="text-xs font-mono font-semibold tracking-wider text-theme-accent uppercase">
-              ENGINEERING PORTFOLIO
+            <div className="text-xs font-mono font-semibold tracking-wider text-theme-accent uppercase flex items-center gap-2">
+              <span>05 · PROJECTS (RESUME VERIFIED)</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-theme-text tracking-tight mt-1">
-              Selected Engineering Work
+              Featured Systems & Research Projects
             </h2>
             <p className="text-sm text-theme-secondary mt-1 max-w-xl">
-              Real-world computer vision, Edge AI, and software systems built to solve practical problems.
+              Strictly featuring projects documented in my verified resume, from personal computer vision platforms to peer-reviewed published ML research.
             </p>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center space-x-1.5 mt-4 md:mt-0 bg-theme-bg p-1 rounded-lg border border-theme-border text-xs font-medium shadow-sm">
-            {(['All', 'Featured', 'Commercial', 'Research'] as const).map((tab) => (
+          <div className="flex items-center space-x-1.5 bg-theme-surface p-1 rounded-xl border border-theme-border text-xs font-medium shadow-xs">
+            {(['All', 'Featured', 'Machine Learning', 'Research'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 rounded-md transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg transition-all duration-200 ${
                   activeTab === tab
-                    ? 'bg-theme-card text-theme-text border border-theme-border shadow-sm font-semibold'
+                    ? 'bg-theme-card text-theme-accent border border-theme-border shadow-xs font-semibold'
                     : 'text-theme-secondary hover:text-theme-text'
                 }`}
               >
@@ -54,34 +57,43 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
           </div>
         </div>
 
-        {/* Featured Card: VisionEye Spotlight */}
-        {projects.find(p => p.id === 1) && (
-          <div className="mb-12 rounded-xl bg-theme-card border border-theme-border p-6 lg:p-8 shadow-md hover:border-theme-borderHover transition-all duration-300">
+        {/* Featured Project Spotlight: VisionEye */}
+        {featuredProject && (activeTab === 'All' || activeTab === 'Featured') && (
+          <div className="mb-12 rounded-2xl bg-theme-card border border-theme-border p-6 sm:p-8 lg:p-10 shadow-lg hover:border-theme-accent/50 transition-all duration-300 relative overflow-hidden group">
+            
+            {/* Top Accent Gradient Bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-theme-accent via-sky-400 to-theme-accentSec" />
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
               <div className="lg:col-span-7 space-y-4">
                 <div className="inline-flex items-center space-x-2 text-xs font-mono text-theme-accent">
-                  <span className="font-semibold uppercase tracking-wider">FEATURED PLATFORM</span>
+                  <span className="font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>FEATURED COMPUTER VISION PLATFORM</span>
+                  </span>
                   <span>·</span>
-                  <span className="text-theme-secondary">Real-Time Foot-Traffic Analytics</span>
+                  <span className="text-theme-secondary">{featuredProject.tagline}</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-bold text-theme-text">
-                  VisionEye
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-theme-text tracking-tight">
+                  {featuredProject.title}
                 </h3>
 
-                <p className="text-sm text-theme-secondary leading-relaxed">
-                  A computer vision platform that detects and tracks people, counts entry and exit events, and supports occupancy and spatial analytics.
+                <p className="text-sm sm:text-base text-theme-secondary leading-relaxed">
+                  A high-throughput computer vision analytics platform engineered with lightweight YOLO26n ONNX models and ByteTrack. 
+                  Calculates bidirectional entry and exit crossings, real-time occupancy limits, and 2D planar bird's-eye perspective maps.
                 </p>
 
-                {/* Simplified Architecture Flow */}
+                {/* Architecture Pipeline Flow */}
                 <div className="pt-2 pb-1">
-                  <div className="text-[11px] font-mono text-theme-secondary mb-2 uppercase tracking-wide">
+                  <div className="text-[11px] font-mono text-theme-secondary mb-2 uppercase tracking-wider font-semibold">
                     System Architecture Pipeline:
                   </div>
                   <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono">
-                    {["Video Input", "Detection", "Tracking", "Entry/Exit Logic", "Analytics Dashboard"].map((step, sIdx, arr) => (
+                    {featuredProject.architectureSteps?.map((step, sIdx, arr) => (
                       <React.Fragment key={sIdx}>
-                        <span className="px-2.5 py-1 rounded bg-theme-elevated border border-theme-border text-theme-text font-medium shadow-xs">
+                        <span className="px-2.5 py-1 rounded-md bg-theme-elevated border border-theme-border text-theme-text font-medium shadow-xs">
                           {step}
                         </span>
                         {sIdx < arr.length - 1 && (
@@ -94,74 +106,89 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
                 {/* Tech Pills */}
                 <div className="flex flex-wrap gap-1.5 pt-2">
-                  {["YOLO26n ONNX", "ByteTrack", "OpenCV", "React", "Django REST Framework", "Django Channels", "WebSockets", "Docker"].map((tech, tIdx) => (
-                    <span key={tIdx} className="badge-tag">
+                  {featuredProject.technologies.map((tech, tIdx) => (
+                    <span key={tIdx} className="badge-tag text-xs">
                       {tech}
                     </span>
                   ))}
                 </div>
 
                 {/* Actions */}
-                <div className="flex flex-wrap items-center gap-3 pt-3">
+                <div className="pt-4 flex flex-wrap items-center gap-3">
                   <button
-                    onClick={() => setSelectedProject(projects.find(p => p.id === 1) || null)}
-                    className="btn-primary text-xs"
+                    onClick={() => setSelectedProject(featuredProject)}
+                    className="btn-primary group/btn"
                   >
-                    <span>View Architecture & Details</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <span>View System Architecture</span>
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                   </button>
 
-                  <a
-                    href="https://github.com/PVSaketh2003/In-out-Project-"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-secondary text-xs"
-                  >
-                    <Github className="w-3.5 h-3.5 text-theme-secondary" />
-                    <span>View Source Code</span>
-                  </a>
+                  {featuredProject.liveUrl && (
+                    <a
+                      href={featuredProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary"
+                    >
+                      <span>Live Platform</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-theme-accent" />
+                    </a>
+                  )}
 
-                  <a
-                    href="https://portfolio.pvsairamsaketh.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 text-xs text-theme-secondary hover:text-theme-accent transition-colors ml-1 font-medium"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    <span>Live Project</span>
-                  </a>
+                  {featuredProject.githubUrl && (
+                    <a
+                      href={featuredProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-lg border border-theme-border bg-theme-card hover:bg-theme-elevated text-theme-secondary hover:text-theme-text transition-all"
+                      title="View GitHub Repository"
+                      aria-label="GitHub Repository"
+                    >
+                      <Github className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </div>
 
-              {/* Right Column: Architectural Flow Diagram */}
+              {/* Right Side: Architectural Telemetry Visual */}
               <div className="lg:col-span-5">
-                <div className="p-5 rounded-lg bg-theme-elevated border border-theme-border space-y-3 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[11px] pb-2 border-b border-theme-border">
-                    <span className="text-theme-text font-semibold uppercase">VisionEye Pipeline Execution</span>
-                    <span className="text-theme-accentSec font-bold">Edge Capable</span>
+                <div className="p-5 rounded-xl bg-theme-surface border border-theme-border shadow-inner space-y-4 font-mono text-xs">
+                  <div className="flex items-center justify-between pb-3 border-b border-theme-border">
+                    <span className="font-semibold text-theme-text flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>VisionEye Real-Time Telemetry</span>
+                    </span>
+                    <span className="text-[10px] text-theme-accent bg-theme-elevated px-2 py-0.5 rounded border border-theme-border">
+                      30+ FPS
+                    </span>
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="p-2.5 rounded bg-theme-card border border-theme-border">
-                      <div className="text-theme-accent font-semibold text-[11px]">1. INGESTION & INFERENCE</div>
-                      <div className="text-[11px] text-theme-secondary mt-0.5">
-                        Lightweight YOLO ONNX model detects targets on frame buffer without cloud round-trip.
-                      </div>
+                  <div className="space-y-2.5 text-[11px]">
+                    <div className="flex justify-between py-1 border-b border-theme-border/60">
+                      <span className="text-theme-secondary">Inference Engine:</span>
+                      <span className="text-theme-text font-semibold">YOLO26n ONNX FP16</span>
                     </div>
+                    <div className="flex justify-between py-1 border-b border-theme-border/60">
+                      <span className="text-theme-secondary">Multi-Target Tracker:</span>
+                      <span className="text-theme-text font-semibold">ByteTrack Kalman Filter</span>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-theme-border/60">
+                      <span className="text-theme-secondary">Spatial Projection:</span>
+                      <span className="text-theme-text font-semibold">2D Planar Homography</span>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-theme-border/60">
+                      <span className="text-theme-secondary">Communication:</span>
+                      <span className="text-theme-text font-semibold">Django Channels WebSockets</span>
+                    </div>
+                    <div className="flex justify-between py-1">
+                      <span className="text-theme-secondary">Deployment:</span>
+                      <span className="text-theme-text font-semibold">Docker · Nginx SSL/TLS</span>
+                    </div>
+                  </div>
 
-                    <div className="p-2.5 rounded bg-theme-card border border-theme-border">
-                      <div className="text-theme-accent font-semibold text-[11px]">2. MULTI-OBJECT TRACKING</div>
-                      <div className="text-[11px] text-theme-secondary mt-0.5">
-                        ByteTrack preserves tracklet IDs through temporary occlusions and trajectory crossovers.
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded bg-theme-card border border-theme-border">
-                      <div className="text-theme-accent font-semibold text-[11px]">3. 2D PERSPECTIVE MAPPING</div>
-                      <div className="text-[11px] text-theme-secondary mt-0.5">
-                        Planar homography converts camera pixel coordinates to floor plan bird's-eye occupancy.
-                      </div>
-                    </div>
+                  <div className="p-3 rounded-lg bg-theme-elevated border border-theme-border text-center text-[11px] text-theme-secondary leading-snug">
+                    <span className="text-theme-accent font-semibold block mb-0.5">Privacy-First Architecture</span>
+                    Zero raw facial imagery recorded. Real-time bounding box vectors streamed via WebSockets.
                   </div>
                 </div>
               </div>
@@ -170,69 +197,95 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
           </div>
         )}
 
-        {/* Supporting Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredProjects.filter(p => p.id !== 1).map((project) => (
+        {/* Regular Projects Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularProjects.map((project) => (
             <div
               key={project.id}
-              className="card-surface p-6 flex flex-col justify-between group"
+              className="card-surface p-6 flex flex-col justify-between hover:border-theme-accent/50 hover:-translate-y-1 transition-all duration-300 group"
             >
               <div>
-                <div className="flex items-center justify-between text-xs font-mono text-theme-secondary mb-2">
-                  <span className="text-theme-accent uppercase font-medium">
+                {/* Header Tag */}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-theme-border">
+                  <span className="text-[10px] font-mono text-theme-accent uppercase bg-theme-elevated px-2 py-0.5 rounded border border-theme-border font-medium">
                     {project.category}
                   </span>
                   {project.metrics && (
-                    <span className="text-theme-secondary text-[11px]">
+                    <span className="text-[10px] font-mono text-theme-muted truncate max-w-[140px]">
                       {project.metrics}
                     </span>
                   )}
                 </div>
 
-                <h4 className="text-lg font-bold text-theme-text group-hover:text-theme-accent transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-theme-text group-hover:text-theme-accent transition-colors mb-2">
                   {project.title}
-                </h4>
+                </h3>
 
-                <div className="space-y-2 mt-3 text-xs sm:text-sm text-theme-secondary leading-relaxed">
-                  {project.description.map((desc, dIdx) => (
-                    <p key={dIdx}>{desc}</p>
-                  ))}
-                </div>
+                <p className="text-xs sm:text-sm text-theme-secondary mb-3 leading-relaxed">
+                  {project.description[0]}
+                </p>
+
+                {/* Additional bullet if available */}
+                {project.description[1] && (
+                  <p className="text-xs text-theme-secondary/80 mb-4 leading-relaxed">
+                    {project.description[1]}
+                  </p>
+                )}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-theme-border space-y-3">
-                <div className="flex flex-wrap gap-1.5">
-                  {project.technologies.map((tech, tIdx) => (
+              <div>
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-theme-border mb-4">
+                  {project.technologies.slice(0, 4).map((tech, tIdx) => (
                     <span key={tIdx} className="badge-tag text-[10px] py-0.5 px-2">
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <span className="text-[10px] font-mono text-theme-muted self-center">
+                      +{project.technologies.length - 4}
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex items-center justify-between text-xs">
-                  {project.githubUrl ? (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 text-theme-secondary hover:text-theme-text transition-colors font-medium"
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                      <span>View Source Code</span>
-                    </a>
-                  ) : (
-                    <span className="text-[11px] text-theme-muted font-mono">Defense / Internal System</span>
-                  )}
-
-                  {project.modalDetails && (
+                {/* Action Links */}
+                <div className="flex items-center justify-between pt-1">
+                  {project.architectureSteps ? (
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="inline-flex items-center space-x-1 text-theme-accent hover:text-theme-accentHover transition-colors font-medium"
+                      className="text-xs font-semibold text-theme-accent hover:underline flex items-center gap-1 group/btn"
                     >
-                      <span>Details</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>Architecture Details</span>
+                      <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
                     </button>
+                  ) : (
+                    <span className="text-xs font-mono text-theme-muted">Resume Verified</span>
                   )}
+
+                  <div className="flex items-center space-x-2">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-theme-secondary hover:text-theme-accent transition-colors"
+                        title="Live Link"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-theme-secondary hover:text-theme-text transition-colors"
+                        title="GitHub"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -242,107 +295,131 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
       </div>
 
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-          <div className="bg-theme-card border border-theme-border rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 text-sm shadow-2xl animate-slide-up">
-            <div className="flex items-start justify-between border-b border-theme-border pb-4">
+      {/* Interactive System Architecture Modal */}
+      {selectedProject && selectedProject.modalDetails && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-3xl rounded-2xl bg-theme-card border border-theme-border shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+            
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-theme-border">
               <div>
-                <span className="text-xs font-mono text-theme-accent uppercase font-medium">
-                  {selectedProject.category}
+                <span className="text-[11px] font-mono text-theme-accent uppercase">
+                  SYSTEM ARCHITECTURE BREAKDOWN
                 </span>
-                <h3 className="text-xl font-bold text-theme-text mt-1">
+                <h3 className="text-xl sm:text-2xl font-bold text-theme-text mt-1">
                   {selectedProject.title}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedProject(null)}
-                className="p-1 rounded text-theme-secondary hover:text-theme-text hover:bg-theme-elevated transition-colors"
+                className="p-1.5 rounded-lg text-theme-secondary hover:text-theme-text hover:bg-theme-elevated transition-colors"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {selectedProject.modalDetails && (
-              <div className="space-y-5 text-theme-secondary">
-                <div>
-                  <h4 className="text-xs font-mono uppercase text-theme-text font-semibold mb-1">
-                    The Problem
+            {/* Modal Body */}
+            <div className="mt-6 space-y-6 text-sm text-theme-secondary">
+              
+              {/* Problem & Solution */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-theme-surface border border-theme-border">
+                  <h4 className="text-xs font-mono uppercase text-theme-text font-bold mb-1.5">
+                    Problem Statement
                   </h4>
-                  <p className="leading-relaxed">
+                  <p className="text-xs leading-relaxed">
                     {selectedProject.modalDetails.problem}
                   </p>
                 </div>
-
-                <div>
-                  <h4 className="text-xs font-mono uppercase text-theme-text font-semibold mb-1">
-                    The Approach & Solution
+                <div className="p-4 rounded-xl bg-theme-surface border border-theme-border">
+                  <h4 className="text-xs font-mono uppercase text-theme-accent font-bold mb-1.5">
+                    Engineering Solution
                   </h4>
-                  <p className="leading-relaxed">
+                  <p className="text-xs leading-relaxed">
                     {selectedProject.modalDetails.solution}
                   </p>
                 </div>
+              </div>
 
+              {/* Architecture Steps */}
+              <div>
+                <h4 className="text-xs font-mono uppercase text-theme-text font-bold mb-3">
+                  Pipeline Implementation Details
+                </h4>
+                <ul className="space-y-2 text-xs">
+                  {selectedProject.modalDetails.architecture.map((step, idx) => (
+                    <li key={idx} className="flex items-start space-x-2 p-2.5 rounded-lg bg-theme-elevated border border-theme-border">
+                      <span className="text-theme-accent font-mono font-bold mt-0.5">{idx + 1}.</span>
+                      <span className="text-theme-text">{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Challenges & Decisions */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="text-xs font-mono uppercase text-theme-text font-semibold mb-2">
-                    System Architecture
+                  <h4 className="text-xs font-mono uppercase text-theme-text font-bold mb-2">
+                    Key Challenges
                   </h4>
-                  <ul className="space-y-1.5">
-                    {selectedProject.modalDetails.architecture.map((arch, i) => (
-                      <li key={i} className="flex items-start space-x-2">
-                        <span className="text-theme-accent">▸</span>
-                        <span className="text-xs text-theme-text">{arch}</span>
+                  <ul className="space-y-1.5 text-xs">
+                    {selectedProject.modalDetails.challenges.map((c, idx) => (
+                      <li key={idx} className="flex items-start space-x-1.5">
+                        <span className="text-theme-accent mt-0.5">•</span>
+                        <span>{c}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-3.5 rounded-lg bg-theme-elevated border border-theme-border">
-                    <h5 className="text-[11px] font-mono text-theme-text uppercase mb-1 font-semibold">
-                      Key Engineering Decisions
-                    </h5>
-                    <ul className="text-xs space-y-1">
-                      {selectedProject.modalDetails.decisions.map((dec, i) => (
-                        <li key={i} className="text-theme-secondary">· {dec}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="p-3.5 rounded-lg bg-theme-elevated border border-theme-border">
-                    <h5 className="text-[11px] font-mono text-theme-text uppercase mb-1 font-semibold">
-                      Challenges & Trade-offs
-                    </h5>
-                    <ul className="text-xs space-y-1">
-                      {selectedProject.modalDetails.challenges.map((ch, i) => (
-                        <li key={i} className="text-theme-secondary">· {ch}</li>
-                      ))}
-                    </ul>
-                  </div>
+                <div>
+                  <h4 className="text-xs font-mono uppercase text-theme-text font-bold mb-2">
+                    Architectural Decisions
+                  </h4>
+                  <ul className="space-y-1.5 text-xs">
+                    {selectedProject.modalDetails.decisions.map((d, idx) => (
+                      <li key={idx} className="flex items-start space-x-1.5">
+                        <span className="text-theme-accent mt-0.5">•</span>
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                {selectedProject.modalDetails.futureWork && (
-                  <div>
-                    <h4 className="text-xs font-mono uppercase text-theme-text font-semibold mb-1">
-                      Future Improvements
-                    </h4>
-                    <p className="text-xs leading-relaxed">
-                      {selectedProject.modalDetails.futureWork}
-                    </p>
-                  </div>
-                )}
               </div>
-            )}
 
-            <div className="pt-4 border-t border-theme-border flex justify-end">
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="btn-secondary text-xs"
-              >
-                Close Details
-              </button>
+              {/* Modal Footer Links */}
+              <div className="pt-4 border-t border-theme-border flex items-center justify-between">
+                <span className="text-xs font-mono text-theme-muted">
+                  PV Sairam Saketh Portfolio
+                </span>
+                <div className="flex items-center space-x-3">
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary text-xs py-1.5 px-3"
+                    >
+                      <Github className="w-3.5 h-3.5 mr-1.5" />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary text-xs py-1.5 px-3"
+                    >
+                      <span>Live Site</span>
+                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+
             </div>
+
           </div>
         </div>
       )}
@@ -350,3 +427,5 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
     </section>
   );
 };
+
+export default ProjectsSection;
