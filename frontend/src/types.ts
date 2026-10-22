@@ -18,6 +18,7 @@ export interface Experience {
   location: string;
   duration: string;
   division?: string;
+  summary?: string;
   highlights: string[];
   technologies: string[];
 }
@@ -25,7 +26,7 @@ export interface Experience {
 export interface Project {
   id: number;
   title: string;
-  category: 'UAV Defense' | 'Computer Vision' | 'Edge AI' | 'Full Stack' | 'Research';
+  category: string;
   tagline: string;
   description: string[];
   metrics?: string;
@@ -33,11 +34,20 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   isFeatured: boolean;
+  architectureSteps?: string[];
+  modalDetails?: {
+    problem: string;
+    solution: string;
+    architecture: string[];
+    challenges: string[];
+    decisions: string[];
+    futureWork?: string;
+  };
 }
 
-export interface SkillCategory {
+export interface SkillGroup {
   category: string;
-  skills: { name: string; level: number; highlight?: boolean }[];
+  skills: string[];
 }
 
 export interface ContactMessage {

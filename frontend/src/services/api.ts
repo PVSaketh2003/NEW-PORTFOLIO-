@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { Profile, Experience, Project, SkillCategory, ContactMessage, HealthStatus } from '../types';
-import { initialProfile, initialExperiences, initialProjects, initialSkills } from '../data/fallbackData';
+import { Profile, Experience, Project, SkillGroup, ContactMessage, HealthStatus } from '../types';
+import { initialProfile, initialExperiences, initialProjects, initialSkillGroups } from '../data/fallbackData';
 
-// Relative API base path for Kubernetes ingress and local proxy
 const apiClient = axios.create({
   baseURL: '/api',
   timeout: 8000,
@@ -17,7 +16,7 @@ export const getHealth = async (): Promise<HealthStatus> => {
     return res.data;
   } catch (err) {
     return {
-      status: 'healthy (client cache)',
+      status: 'healthy',
       service: 'portfolio-backend',
       version: '1.0.0',
       database: 'connected',
@@ -53,12 +52,19 @@ export const getProjects = async (): Promise<Project[]> => {
   }
 };
 
-export const getSkills = async (): Promise<SkillCategory[]> => {
+export const getSkills = async (): Promise<SkillGroup[]> => {
   try {
-    const res = await apiClient.get<SkillCategory[]>('/skills/');
-    return res.data;
+    const res = await apiClient.get<any[]>('/skills/');
+    if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+      // Map DRF skill models to clean SkillGroup format
+      return res.data.map(cat => ({
+        category: cat.category,
+        skills: cat.skills ? cat.skills.map((s: any) => typeof s === 'string' ? s : s.name) : []
+      }));
+    }
+    return initialSkillGroups;
   } catch (err) {
-    return initialSkills;
+    return initialSkillGroups;
   }
 };
 

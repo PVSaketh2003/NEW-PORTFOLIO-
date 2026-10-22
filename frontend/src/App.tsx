@@ -1,55 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { DefenseUAVSection } from './components/DefenseUAVSection';
-import { ExperienceSection } from './components/ExperienceSection';
+import { AboutSection } from './components/AboutSection';
 import { ProjectsSection } from './components/ProjectsSection';
-import { InteractiveCVDemo } from './components/InteractiveCVDemo';
+import { ExperienceSection } from './components/ExperienceSection';
 import { SkillsSection } from './components/SkillsSection';
+import { ResearchEducationSection } from './components/ResearchEducationSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
-import { getProfile, getExperiences, getProjects, getSkills } from './services/api';
-import { Profile, Experience, Project, SkillCategory } from './types';
-import { initialProfile, initialExperiences, initialProjects, initialSkills } from './data/fallbackData';
+import { getExperiences, getProjects } from './services/api';
+import { Experience, Project } from './types';
+import { initialExperiences, initialProjects } from './data/fallbackData';
 
 export const App: React.FC = () => {
-  const [profile, setProfile] = useState<Profile>(initialProfile);
   const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
-  const [skills, setSkills] = useState<SkillCategory[]>(initialSkills);
 
   useEffect(() => {
-    // Hydrate from live backend API if available
     const fetchData = async () => {
       try {
-        const [p, e, pr, s] = await Promise.all([
-          getProfile(),
+        const [e, pr] = await Promise.all([
           getExperiences(),
           getProjects(),
-          getSkills(),
         ]);
-        if (p) setProfile(p);
         if (e && e.length > 0) setExperiences(e);
         if (pr && pr.length > 0) setProjects(pr);
-        if (s && s.length > 0) setSkills(s);
       } catch (err) {
-        console.warn('API fetch fell back to static resume dataset:', err);
+        console.warn('Using verified static dataset:', err);
       }
     };
     fetchData();
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#101216] text-[#F3F5F7] flex flex-col font-sans selection:bg-[#55BFE5] selection:text-[#101216]">
       <Navbar />
       <main className="flex-grow">
-        <Hero profile={profile} />
-        <DefenseUAVSection />
-        <ExperienceSection experiences={experiences} />
+        <Hero />
+        <AboutSection />
         <ProjectsSection projects={projects} />
-        <InteractiveCVDemo />
-        <SkillsSection skillCategories={skills} />
+        <ExperienceSection experiences={experiences} />
+        <SkillsSection />
+        <ResearchEducationSection />
         <ContactSection />
       </main>
       <Footer />

@@ -1,40 +1,67 @@
 import React from 'react';
-import { Shield, Server, Lock, Cpu, Globe } from 'lucide-react';
+import { Mail, Linkedin, Github, FileText } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 py-12 text-xs font-mono text-slate-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#101216] border-t border-[#2A3240] py-10 text-xs text-[#A6AFBD]">
+      <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Architecture Badges Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pb-8 mb-8 border-b border-slate-900 text-[11px]">
-          <div className="flex items-center space-x-2 text-slate-300">
-            <Server className="w-4 h-4 text-cyan-400" />
-            <span>AWS EC2 + k3s Kube</span>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          
+          <div>
+            <span className="font-semibold text-[#F3F5F7]">Sairam Saketh</span>
+            <span className="text-[#6B7688] mx-2">·</span>
+            <span>Computer Vision & Edge AI Engineer</span>
           </div>
-          <div className="flex items-center space-x-2 text-slate-300">
-            <Lock className="w-4 h-4 text-emerald-400" />
-            <span>TLS 1.3 Let's Encrypt</span>
+
+          <div className="flex items-center space-x-5 text-xs">
+            <a
+              href="mailto:pvsairamsaketh@gmail.com"
+              className="hover:text-[#F3F5F7] transition-colors flex items-center space-x-1"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#55BFE5]" />
+              <span>Email</span>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/pvsaketh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#F3F5F7] transition-colors flex items-center space-x-1"
+            >
+              <Linkedin className="w-3.5 h-3.5 text-[#55BFE5]" />
+              <span>LinkedIn</span>
+            </a>
+
+            <a
+              href="https://github.com/PVSaketh2003"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#F3F5F7] transition-colors flex items-center space-x-1"
+            >
+              <Github className="w-3.5 h-3.5 text-[#55BFE5]" />
+              <span>GitHub</span>
+            </a>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#F3F5F7] transition-colors flex items-center space-x-1"
+            >
+              <FileText className="w-3.5 h-3.5 text-[#55BFE5]" />
+              <span>Resume</span>
+            </a>
           </div>
-          <div className="flex items-center space-x-2 text-slate-300">
-            <Cpu className="w-4 h-4 text-purple-400" />
-            <span>NVIDIA Jetson Optimized</span>
-          </div>
-          <div className="flex items-center space-x-2 text-slate-300">
-            <Globe className="w-4 h-4 text-amber-400" />
-            <span>portfolio.pvsairamsaketh.in</span>
-          </div>
+
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-2">
-            <Shield className="w-4 h-4 text-cyan-400" />
-            <span className="text-slate-200 font-semibold">P V SAIRAM SAKETH</span>
-            <span>— Computer Vision & Edge AI Engineer</span>
+        <div className="mt-6 pt-6 border-t border-[#2A3240]/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#6B7688]">
+          <div>
+            © {new Date().getFullYear()} P V Sairam Saketh. All rights reserved.
           </div>
-
-          <div className="text-slate-500">
-            Built with React 18, Django 5, Docker, Kubernetes & GitHub Actions
+          <div className="mt-2 sm:mt-0">
+            portfolio.pvsairamsaketh.in
           </div>
         </div>
 
