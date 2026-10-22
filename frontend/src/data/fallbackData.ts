@@ -378,7 +378,6 @@ export const initialProjects: Project[] = [
     ],
     metrics: "Real-time edge tracking, 2D perspective transformation, WebSocket telemetry",
     technologies: ["YOLO26n ONNX", "ByteTrack", "OpenCV", "React 18", "Django REST Framework", "Django Channels", "WebSockets", "Docker"],
-    liveUrl: "https://pvsairamsaketh.in",
     githubUrl: "https://github.com/PVSaketh2003/In-out-Project-",
     isFeatured: true,
     architectureSteps: [

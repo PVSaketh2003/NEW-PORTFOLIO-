@@ -114,40 +114,22 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                 </div>
 
                 {/* Actions */}
-                <div className="pt-4 flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => setSelectedProject(featuredProject)}
-                    className="btn-primary group/btn"
-                  >
-                    <span>View System Architecture</span>
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                  </button>
-
-                  {featuredProject.liveUrl && (
-                    <a
-                      href={featuredProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary"
-                    >
-                      <span>Live Platform</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-theme-accent" />
-                    </a>
-                  )}
-
-                  {featuredProject.githubUrl && (
+                {featuredProject.githubUrl && (
+                  <div className="pt-4 flex flex-wrap items-center gap-3">
                     <a
                       href={featuredProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-lg border border-theme-border bg-theme-card hover:bg-theme-elevated text-theme-secondary hover:text-theme-text transition-all"
+                      className="btn-secondary inline-flex items-center gap-2 group/btn"
                       title="View GitHub Repository"
                       aria-label="GitHub Repository"
                     >
-                      <Github className="w-4 h-4" />
+                      <Github className="w-4 h-4 text-theme-accent" />
+                      <span>View GitHub Repository</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-theme-secondary transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                     </a>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               {/* Right Side: Architectural Telemetry Visual */}
@@ -263,17 +245,6 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                   )}
 
                   <div className="flex items-center space-x-2">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-theme-secondary hover:text-theme-accent transition-colors"
-                        title="Live Link"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
                     {project.githubUrl && (
                       <a
                         href={project.githubUrl}
@@ -402,17 +373,6 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                     >
                       <Github className="w-3.5 h-3.5 mr-1.5" />
                       <span>GitHub</span>
-                    </a>
-                  )}
-                  {selectedProject.liveUrl && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary text-xs py-1.5 px-3"
-                    >
-                      <span>Live Site</span>
-                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                     </a>
                   )}
                 </div>

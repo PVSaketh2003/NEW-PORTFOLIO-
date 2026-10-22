@@ -151,7 +151,6 @@ class Command(BaseCommand):
                 ],
                 "metrics": "Real-time edge tracking, 2D perspective transformation, WebSocket telemetry",
                 "technologies": ["YOLO26n ONNX", "ByteTrack", "OpenCV", "React 18", "Django REST Framework", "Django Channels", "WebSockets", "Docker"],
-                "live_url": "https://pvsairamsaketh.in",
                 "github_url": "https://github.com/PVSaketh2003/In-out-Project-",
                 "is_featured": True,
                 "order": 5
