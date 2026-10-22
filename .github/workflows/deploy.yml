@@ -1,0 +1,143 @@
+name: Production Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  build-and-push:
+    name: Build & Push Images to Docker Hub
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.vars.outputs.sha_short }}
+      frontend_image: ${{ steps.meta.outputs.frontend_image }}
+      backend_image: ${{ steps.meta.outputs.backend_image }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Calculate Image Tag & Metadata
+        id: vars
+        run: |
+          echo "sha_short=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_OUTPUT
+          echo "commit_sha=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+
+      - name: Resolve Docker Hub Repositories
+        id: meta
+        run: |
+          DOCKER_USER="${{ secrets.DOCKERHUB_USERNAME || 'pvsaketh' }}"
+          FRONTEND_REPO="${{ vars.DOCKERHUB_FRONTEND_REPOSITORY || format('{0}/portfolio-frontend', secrets.DOCKERHUB_USERNAME || 'pvsaketh') }}"
+          BACKEND_REPO="${{ vars.DOCKERHUB_BACKEND_REPOSITORY || format('{0}/portfolio-backend', secrets.DOCKERHUB_USERNAME || 'pvsaketh') }}"
+          echo "frontend_image=${FRONTEND_REPO}" >> $GITHUB_OUTPUT
+          echo "backend_image=${BACKEND_REPO}" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Frontend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ steps.meta.outputs.frontend_image }}:${{ steps.vars.outputs.commit_sha }}
+            ${{ steps.meta.outputs.frontend_image }}:${{ steps.vars.outputs.sha_short }}
+            ${{ steps.meta.outputs.frontend_image }}:latest
+
+      - name: Build & Push Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ steps.meta.outputs.backend_image }}:${{ steps.vars.outputs.commit_sha }}
+            ${{ steps.meta.outputs.backend_image }}:${{ steps.vars.outputs.sha_short }}
+            ${{ steps.meta.outputs.backend_image }}:latest
+
+  deploy-to-k3s:
+    name: Deploy to Kubernetes on AWS EC2
+    runs-on: ubuntu-latest
+    needs: [build-and-push]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Configure Deployment SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.AWS_DEPLOY_HOST || '3.25.73.147' }} >> ~/.ssh/known_hosts
+
+      - name: Copy Kubernetes Manifests to EC2
+        env:
+          HOST: ${{ secrets.AWS_DEPLOY_HOST || '3.25.73.147' }}
+          USER: ${{ secrets.AWS_DEPLOY_USER || 'ubuntu' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key $USER@$HOST "mkdir -p ~/portfolio-deploy/kubernetes"
+          scp -i ~/.ssh/deploy_key deploy/kubernetes/*.yaml $USER@$HOST:~/portfolio-deploy/kubernetes/
+
+      - name: Apply Kubernetes Updates & Rollout New Images
+        env:
+          HOST: ${{ secrets.AWS_DEPLOY_HOST || '3.25.73.147' }}
+          USER: ${{ secrets.AWS_DEPLOY_USER || 'ubuntu' }}
+          FRONTEND_IMG: ${{ needs.build-and-push.outputs.frontend_image }}:${{ github.sha }}
+          BACKEND_IMG: ${{ needs.build-and-push.outputs.backend_image }}:${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/deploy_key $USER@$HOST << 'EOF'
+            set -e
+            echo "Applying Kubernetes manifests in namespace portfolio..."
+            sudo kubectl apply -f ~/portfolio-deploy/kubernetes/01-namespace.yaml
+            sudo kubectl apply -f ~/portfolio-deploy/kubernetes/02-configmap.yaml
+            
+            # Check or create secrets if not present
+            if ! sudo kubectl get secret portfolio-secrets -n portfolio >/dev/null 2>&1; then
+              echo "Creating initial portfolio-secrets..."
+              sudo kubectl apply -f ~/portfolio-deploy/kubernetes/03-secrets-template.yaml
+            fi
+
+            sudo kubectl apply -f ~/portfolio-deploy/kubernetes/04-postgres.yaml
+
+            # Substitute image tags in backend and frontend manifests
+            sed "s|DOCKERHUB_BACKEND_IMAGE_PLACEHOLDER|${BACKEND_IMG}|g" ~/portfolio-deploy/kubernetes/05-backend.yaml | sudo kubectl apply -f -
+            sed "s|DOCKERHUB_FRONTEND_IMAGE_PLACEHOLDER|${FRONTEND_IMG}|g" ~/portfolio-deploy/kubernetes/06-frontend.yaml | sudo kubectl apply -f -
+
+            sudo kubectl apply -f ~/portfolio-deploy/kubernetes/07-ingress.yaml
+
+            echo "Waiting for PostgreSQL rollout..."
+            sudo kubectl rollout status deployment/portfolio-postgres -n portfolio --timeout=120s
+
+            echo "Waiting for Backend rollout..."
+            sudo kubectl rollout status deployment/portfolio-backend -n portfolio --timeout=180s
+
+            echo "Running database migrations..."
+            BACKEND_POD=$(sudo kubectl get pods -n portfolio -l app=portfolio-backend -o jsonpath='{.items[0].metadata.name}')
+            sudo kubectl exec -n portfolio $BACKEND_POD -- python manage.py migrate --noinput
+            sudo kubectl exec -n portfolio $BACKEND_POD -- python manage.py seed_portfolio
+
+            echo "Waiting for Frontend rollout..."
+            sudo kubectl rollout status deployment/portfolio-frontend -n portfolio --timeout=120s
+
+            echo "Cluster deployment finished successfully!"
+            sudo kubectl get pods,services,ingress -n portfolio
+          EOF
+
+      - name: Run Live Smoke Verification
+        env:
+          DOMAIN: portfolio.pvsairamsaketh.in
+          HOST: ${{ secrets.AWS_DEPLOY_HOST || '3.25.73.147' }}
+        run: |
+          echo "Verifying deployment endpoint..."
+          curl -kv -H "Host: $DOMAIN" "http://$HOST/healthz" || true
+          curl -kv -H "Host: $DOMAIN" "http://$HOST/api/health/" || true

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portfolio-config
+  namespace: portfolio
+  labels:
+    app.kubernetes.io/name: portfolio
+    app.kubernetes.io/component: configuration
+data:
+  DJANGO_DEBUG: "False"
+  DJANGO_ALLOWED_HOSTS: "portfolio.pvsairamsaketh.in,localhost,127.0.0.1,backend-service,frontend-service,3.25.73.147"
+  CSRF_TRUSTED_ORIGINS: "https://portfolio.pvsairamsaketh.in"
+  POSTGRES_DB: "portfolio_db"
+  POSTGRES_USER: "portfolio_user"
+  POSTGRES_HOST: "postgres-service"
+  POSTGRES_PORT: "5432"
