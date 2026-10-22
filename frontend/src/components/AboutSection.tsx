@@ -26,22 +26,22 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-16 lg:py-20 bg-[#0B0D12] border-b border-[#273142]/60">
+    <section id="about" className="py-16 lg:py-20 bg-theme-bg border-b border-theme-border transition-colors duration-300">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Main Narrative Column */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="text-xs font-mono font-semibold tracking-wider text-[#62C6F2] uppercase">
+            <div className="text-xs font-mono font-semibold tracking-wider text-theme-accent uppercase">
               ABOUT MY WORK
             </div>
             
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F7FA] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-theme-text tracking-tight">
               From models to deployed systems.
             </h2>
 
-            <div className="space-y-4 text-sm sm:text-base text-[#A4ADBB] leading-relaxed">
+            <div className="space-y-4 text-sm sm:text-base text-theme-secondary leading-relaxed">
               <p>
                 My work connects deep learning research with production-grade engineering. In defense surveillance and industrial automation, the challenge is not just training an accurate model, but ensuring it operates reliably under strict power, compute, and latency budgets.
               </p>
@@ -53,21 +53,21 @@ export const AboutSection: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#F5F7FA]">
+            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-theme-text">
               <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-[#62C6F2] flex-shrink-0" />
+                <Check className="w-4 h-4 text-theme-accent flex-shrink-0" />
                 <span>PyTorch → ONNX → TensorRT FP16</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-[#62C6F2] flex-shrink-0" />
+                <Check className="w-4 h-4 text-theme-accent flex-shrink-0" />
                 <span>NVIDIA Jetson Embedded Linux</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-[#62C6F2] flex-shrink-0" />
+                <Check className="w-4 h-4 text-theme-accent flex-shrink-0" />
                 <span>ByteTrack Multi-Object Tracking</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-[#62C6F2] flex-shrink-0" />
+                <Check className="w-4 h-4 text-theme-accent flex-shrink-0" />
                 <span>Full-Stack Web & Telemetry Integration</span>
               </div>
             </div>
@@ -75,8 +75,8 @@ export const AboutSection: React.FC = () => {
 
           {/* Adjacent Focus Areas Panel */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-6 rounded-xl bg-[#11151D] border border-[#273142]">
-              <h3 className="text-sm font-semibold text-[#F5F7FA] uppercase tracking-wider mb-4 font-mono">
+            <div className="p-6 rounded-xl bg-theme-surface border border-theme-border shadow-sm">
+              <h3 className="text-sm font-semibold text-theme-text uppercase tracking-wider mb-4 font-mono pb-2 border-b border-theme-border">
                 Technical Focus Areas
               </h3>
 
@@ -84,15 +84,15 @@ export const AboutSection: React.FC = () => {
                 {focusAreas.map((area, idx) => {
                   const Icon = area.icon;
                   return (
-                    <div key={idx} className="flex items-start space-x-3 pb-3 border-b border-[#273142]/60 last:border-0 last:pb-0">
-                      <div className="p-2 rounded bg-[#151B26] border border-[#273142] text-[#62C6F2] mt-0.5 flex-shrink-0">
+                    <div key={idx} className="flex items-start space-x-3 pb-3 border-b border-theme-border last:border-0 last:pb-0">
+                      <div className="p-2 rounded bg-theme-elevated border border-theme-border text-theme-accent mt-0.5 flex-shrink-0 shadow-sm">
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-medium text-[#F5F7FA]">
+                        <h4 className="text-sm font-medium text-theme-text">
                           {area.title}
                         </h4>
-                        <p className="text-xs text-[#A4ADBB] mt-0.5 leading-relaxed">
+                        <p className="text-xs text-theme-secondary mt-0.5 leading-relaxed">
                           {area.desc}
                         </p>
                       </div>

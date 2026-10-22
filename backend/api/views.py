@@ -75,25 +75,106 @@ class SkillListView(APIView):
         serializer = SkillCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
+import logging
+import smtplib
+import socket
+from django.conf import settings
+from django.core.mail import EmailMessage
+
+logger = logging.getLogger(__name__)
+
 class ContactView(APIView):
     """
-    Submit a contact inquiry.
+    Submit a contact inquiry and dispatch notification via SMTP email.
     """
     throttle_classes = [ContactThrottle]
 
     def post(self, request):
         serializer = ContactMessageSerializer(data=request.data)
-        if serializer.is_valid():
-            # Extract client IP
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ip = x_forwarded_for.split(',')[0].strip()
-            else:
-                ip = request.META.get('REMOTE_ADDR')
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            serializer.save(ip_address=ip)
+        # Anti-spam honeypot detection: bots filling hidden honeypot are dropped silently
+        honeypot = serializer.validated_data.pop('honeypot', '')
+        if honeypot:
+            logger.warning(f"Honeypot triggered from IP: {request.META.get('REMOTE_ADDR')}")
             return Response({
                 "success": True,
-                "message": "Message transmitted successfully! Thank you for reaching out."
+                "message": "Your message has been received."
+            }, status=status.HTTP_200_OK)
+
+        # Extract client IP safely
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        # Persist submission to database
+        contact_msg = serializer.save(ip_address=ip)
+
+        # Prepare verified SMTP notification email
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient = settings.CONTACT_RECEIVER_EMAIL
+        subject_line = f"[Portfolio Contact] {contact_msg.subject or 'New Inquiry'} from {contact_msg.name}"
+        timestamp_str = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+        body_content = (
+            f"You received a new inquiry from your personal portfolio website:\n\n"
+            f"Name: {contact_msg.name}\n"
+            f"Email: {contact_msg.email}\n"
+            f"Subject: {contact_msg.subject or '(No subject provided)'}\n"
+            f"Timestamp: {timestamp_str}\n"
+            f"IP Address: {ip or 'Unknown'}\n\n"
+            f"Message Body:\n"
+            f"------------------------------------------------------------\n"
+            f"{contact_msg.message}\n"
+            f"------------------------------------------------------------\n\n"
+            f"Reply Note: You can reply directly to this email to contact {contact_msg.email}."
+        )
+
+        email = EmailMessage(
+            subject=subject_line,
+            body=body_content,
+            from_email=from_email,
+            to=[recipient],
+            reply_to=[contact_msg.email],
+        )
+
+        # Determine delivery capability
+        is_test_or_console = (
+            settings.EMAIL_BACKEND.endswith('locmem.EmailBackend') or
+            settings.EMAIL_BACKEND.endswith('console.EmailBackend')
+        )
+        has_smtp_credentials = bool(settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD)
+
+        if not has_smtp_credentials and not is_test_or_console:
+            err_msg = "SMTP credentials (EMAIL_HOST_USER, EMAIL_HOST_PASSWORD) are not configured on the server."
+            logger.warning(err_msg)
+            contact_msg.email_sent = False
+            contact_msg.delivery_error = err_msg
+            contact_msg.save(update_fields=['email_sent', 'delivery_error'])
+            return Response({
+                "detail": "Email dispatch service is currently awaiting SMTP configuration. Your message has been securely recorded in our database, or you can email pvsairamsaketh@gmail.com directly."
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+        try:
+            email.send(fail_silently=False)
+            contact_msg.email_sent = True
+            contact_msg.delivery_error = None
+            contact_msg.save(update_fields=['email_sent', 'delivery_error'])
+            logger.info(f"Contact email successfully delivered for {contact_msg.email}")
+            return Response({
+                "success": True,
+                "message": "Your message has been sent successfully! I will get back to you shortly."
             }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except (smtplib.SMTPException, socket.error, Exception) as exc:
+            exc_name = type(exc).__name__
+            logger.error(f"SMTP delivery failed ({exc_name}): {str(exc)}")
+            contact_msg.email_sent = False
+            contact_msg.delivery_error = f"{exc_name}: {str(exc)}"
+            contact_msg.save(update_fields=['email_sent', 'delivery_error'])
+            return Response({
+                "detail": f"SMTP delivery could not complete at this time ({exc_name}). Your message was saved in our database. Please email pvsairamsaketh@gmail.com directly."
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+

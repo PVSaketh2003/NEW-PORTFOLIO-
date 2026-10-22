@@ -82,10 +82,13 @@ class ContactMessage(models.Model):
     subject = models.CharField(max_length=250, blank=True)
     message = models.TextField()
     ip_address = models.GenericIPAddressField(blank=True, null=True)
+    email_sent = models.BooleanField(default=False)
+    delivery_error = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Message from {self.name} <{self.email}> at {self.created_at}"
+        status_label = "DELIVERED" if self.email_sent else "PENDING/FAILED"
+        return f"[{status_label}] Message from {self.name} <{self.email}> at {self.created_at}"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -13,7 +14,7 @@ import { getExperiences, getProjects } from './services/api';
 import { Experience, Project } from './types';
 import { initialExperiences, initialProjects } from './data/fallbackData';
 
-export const App: React.FC = () => {
+export const AppContent: React.FC = () => {
   const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
 
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0B0D12] text-[#F5F7FA] flex flex-col font-sans selection:bg-[#62C6F2] selection:text-[#0B0D12]">
+    <div className="min-h-screen bg-theme-bg text-theme-text flex flex-col font-sans transition-colors duration-300 selection:bg-theme-accent selection:text-theme-accentText">
       <Navbar />
       <main className="flex-grow">
         <Hero />
@@ -47,6 +48,14 @@ export const App: React.FC = () => {
       </main>
       <Footer />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 

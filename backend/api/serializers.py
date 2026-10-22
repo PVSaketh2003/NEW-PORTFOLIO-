@@ -36,7 +36,32 @@ class SkillCategorySerializer(serializers.ModelSerializer):
         fields = ['category', 'skills']
 
 class ContactMessageSerializer(serializers.ModelSerializer):
+    honeypot = serializers.CharField(required=False, write_only=True, allow_blank=True, default='')
+
     class Meta:
         model = ContactMessage
-        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = ['id', 'name', 'email', 'subject', 'message', 'honeypot', 'email_sent', 'created_at']
+        read_only_fields = ['id', 'email_sent', 'created_at']
+
+    def validate_name(self, value):
+        cleaned = value.strip()
+        if len(cleaned) < 2:
+            raise serializers.ValidationError("Name must be at least 2 characters long.")
+        if len(cleaned) > 150:
+            raise serializers.ValidationError("Name cannot exceed 150 characters.")
+        return cleaned
+
+    def validate_message(self, value):
+        cleaned = value.strip()
+        if len(cleaned) < 5:
+            raise serializers.ValidationError("Message must be at least 5 characters long.")
+        if len(cleaned) > 5000:
+            raise serializers.ValidationError("Message cannot exceed 5000 characters.")
+        return cleaned
+
+    def validate_subject(self, value):
+        cleaned = value.strip()
+        if len(cleaned) > 250:
+            raise serializers.ValidationError("Subject cannot exceed 250 characters.")
+        return cleaned
+
