@@ -64,13 +64,73 @@ class Command(BaseCommand):
             Experience.objects.create(**exp)
         self.stdout.write(self.style.SUCCESS(f'{len(experiences)} Experiences created.'))
 
-        # Projects - Strictly the 4 projects explicitly documented in resume PROJECTS section
+        # Projects - Commercial Computer Vision Systems, Flagship Platform, and Published Research
         Project.objects.all().delete()
         projects = [
             {
-                "title": "VisionEye",
+                "title": "PPEs detection",
                 "category": "Computer Vision",
-                "tagline": "Real-Time Foot-Traffic Analytics & Computer Vision Platform",
+                "tagline": "Real-time safety compliance detection monitoring mandatory protective gear during hazardous chemical operations",
+                "description": [
+                    "Engineered an end-to-end Computer Vision PPE compliance pipeline detecting safety helmets, high-visibility vests, safety goggles, and protective gloves in real time across hazardous chemical composition mixing zones (Chakhdoh Plant).",
+                    "Ingested multi-camera RTSP video streams using OpenCV and GStreamer, implementing background filtering and spatial ROI zoning to eliminate false positives in dynamic plant environments.",
+                    "Optimized PyTorch deep learning models to ONNX and serialized TensorRT FP16 engines on NVIDIA edge hardware, achieving steady 30+ FPS real-time inference with sub-40ms latency.",
+                    "Developed automated safety violation event triggers, audit image logging, and alert reporting pipelines, drastically reducing plant inspection overhead and enforcing OSHA safety compliance."
+                ],
+                "metrics": "30+ FPS Real-Time Inference · Sub-40ms Latency · Multi-Class PPE Tracking",
+                "technologies": ["Python", "PyTorch", "YOLOv8", "TensorRT FP16", "OpenCV", "GStreamer", "NVIDIA Jetson", "Edge AI", "RTSP"],
+                "is_featured": False,
+                "order": 1
+            },
+            {
+                "title": "Process Deviation of Delay Plant",
+                "category": "Computer Vision",
+                "tagline": "Automated chemical manufacturing monitoring using custom deep learning models, Finite State Machines (FSM), and CIELAB color-space analysis",
+                "description": [
+                    "Curated, labeled, and augmented a high-resolution industrial defense manufacturing dataset of 10,000+ domain-specific plant images under challenging industrial scene geometries.",
+                    "Trained 3 specialized deep learning models (YOLO26x) achieving 70% mAP@50 and 43% mAP@50-95 for precision object detection and state tracking.",
+                    "Integrated model inference with a deterministic Finite State Machine (FSM) and CIELAB color-space delta-E analysis to verify critical chemical process transition triggers.",
+                    "Replaced error-prone manual inspections with automated visual telemetry, drastically reducing production defects and preventing hazardous chemical process deviations."
+                ],
+                "metrics": "10,000 Annotated Images · 70% mAP@50 · Automated FSM Process Triggers",
+                "technologies": ["Python", "PyTorch", "YOLO26x", "Finite State Machine (FSM)", "CIELAB Color Space", "OpenCV", "Industrial Automation"],
+                "is_featured": False,
+                "order": 2
+            },
+            {
+                "title": "Face recogntion for Head Count Project",
+                "category": "Edge AI",
+                "tagline": "Scalable real-time CCTV edge biometric face recognition and automated workforce attendance tracking at 5 FPS",
+                "description": [
+                    "Conducted extensive quantitative benchmarking across modern face detectors (YuNet, RetinaFace, SCRFD) and deep face recognition architectures (SFace, ArcFace, AdaFace).",
+                    "Architected a dual-stage edge biometric pipeline combining ultra-lightweight SCRFD face localization with ArcFace deep angular margin loss embeddings.",
+                    "Eliminated multi-person duplicate embeddings and identity collisions in dense crowds by designing a novel Region-of-Interest (ROI-first) spatial sampling workflow operating smoothly at 5 FPS.",
+                    "Integrated with centralized database infrastructure for real-time headcount reconciliation, automated attendance tracking, and restricted facility access verification."
+                ],
+                "metrics": "Sub-50ms Biometric Ingestion · Zero Duplicate Embeddings · Dense Crowd Scalability",
+                "technologies": ["Python", "SCRFD", "ArcFace", "OpenCV", "PyTorch", "ByteTrack", "Vector Embeddings", "NVIDIA Jetson", "Biometrics"],
+                "is_featured": False,
+                "order": 3
+            },
+            {
+                "title": "PDM 557 Fuze",
+                "category": "Computer Vision",
+                "tagline": "Munitions X-ray flaw classification and surface defect detection using deep vision models, morphological filters, and Rust/React stack",
+                "description": [
+                    "Architected an automated non-destructive evaluation (NDE) vision pipeline for munitions X-ray inspection on defense assembly lines for the PDM 557 Fuze program.",
+                    "Implemented advanced digital image processing algorithms, including morphological filtering, adaptive thresholding, and contour area profiling to isolate micro-structural anomalies.",
+                    "Trained and fine-tuned custom YOLO26x deep neural networks to accurately classify manufacturing flaws and structural integrity defects with high recall.",
+                    "Built and deployed a full-stack production plant workstation using high-performance Rust backend services and a modern React JS visual operator inspection dashboard."
+                ],
+                "metrics": "High-Precision Defense Munitions Inspection · Micro-defect Localization · Rust/React Stack",
+                "technologies": ["Rust", "React JS", "Python", "YOLO26x", "OpenCV", "Morphological Filtering", "Adaptive Thresholding", "Defense Systems"],
+                "is_featured": False,
+                "order": 4
+            },
+            {
+                "title": "VisionEye",
+                "category": "Full Stack",
+                "tagline": "Real-Time Foot-Traffic Analytics, 2D Planar Homography, and Low-Latency Edge Vision Platform",
                 "description": [
                     "Engineered a real-time people detection and tracking platform using lightweight YOLO26n ONNX models paired with ByteTrack Kalman filter tracking.",
                     "Enables bidirectional IN/OUT foot-traffic counting, real-time occupancy monitoring, and 2D planar perspective mapping to visualize floor traffic.",
@@ -82,34 +142,7 @@ class Command(BaseCommand):
                 "live_url": "https://pvsairamsaketh.in",
                 "github_url": "https://github.com/PVSaketh2003/In-out-Project-",
                 "is_featured": True,
-                "order": 1
-            },
-            {
-                "title": "Optimized ML Model Selection for Heart Disease Classification",
-                "category": "Edge AI",
-                "tagline": "Clinical dataset preprocessing, exploratory data analysis, and comparative ML model benchmarking",
-                "description": [
-                    "Cleaned and preprocessed clinical health records with outlier handling, label encoding, and missing-value imputation.",
-                    "Conducted exploratory data analysis (EDA) using Matplotlib and Seaborn to identify critical health-risk factors and correlation patterns.",
-                    "Benchmarked multiple supervised learning algorithms in Scikit-learn, identifying Random Forest Classifier as the top performer for disease risk prediction."
-                ],
-                "metrics": "Clinical EDA & Scikit-learn algorithm benchmarking",
-                "technologies": ["Python", "Scikit-learn", "Random Forest Classifier", "Matplotlib", "Seaborn", "Pandas", "NumPy"],
-                "is_featured": False,
-                "order": 2
-            },
-            {
-                "title": "Bank Loan Payment Status Prediction",
-                "category": "Full Stack",
-                "tagline": "Credit repayment pattern analysis comparing Random Forest with associative rule mining",
-                "description": [
-                    "Performed data cleaning, preprocessing, exploratory analysis, and visualization on banking datasets to prepare high-quality model inputs.",
-                    "Identified Random Forest Classifier as the top-performing prediction model; benchmarked against associative FPG-Vertical mining to extract decision rules on complex borrower repayment trends."
-                ],
-                "metrics": "Comparative classification & FPG-Vertical rule extraction",
-                "technologies": ["Python", "Scikit-learn", "Data Analysis", "Random Forest Classifier", "FPG-Vertical", "Pandas"],
-                "is_featured": False,
-                "order": 3
+                "order": 5
             },
             {
                 "title": "Vehicle Insurance Fraud Detection using Bagging Classifier vs. MLP",
@@ -123,7 +156,7 @@ class Command(BaseCommand):
                 "metrics": "Peer-Reviewed Conference Publication (ICCI)",
                 "technologies": ["Python", "Scikit-learn", "Bagging Classifier", "MLP Neural Network", "Imbalanced Data", "Ensemble Learning"],
                 "is_featured": False,
-                "order": 4
+                "order": 6
             }
         ]
         for proj in projects:

@@ -8,12 +8,12 @@ interface ProjectsSectionProps {
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState<'All' | 'Featured' | 'Machine Learning' | 'Research'>('All');
+  const [activeTab, setActiveTab] = useState<'All' | 'Commercial Vision' | 'Edge AI' | 'Research'>('All');
 
   const filteredProjects = projects.filter((p) => {
     if (activeTab === 'All') return true;
-    if (activeTab === 'Featured') return p.isFeatured;
-    if (activeTab === 'Machine Learning') return p.category.includes('Machine Learning') || p.category.includes('Group');
+    if (activeTab === 'Commercial Vision') return p.category.includes('Commercial') || p.category.includes('Vision') || p.category.includes('Safety') || p.category.includes('Platform');
+    if (activeTab === 'Edge AI') return p.category.includes('Edge') || p.category.includes('Biometrics');
     if (activeTab === 'Research') return p.category.includes('Research');
     return true;
   });
@@ -29,19 +29,19 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-theme-border gap-4">
           <div>
             <div className="text-xs font-mono font-semibold tracking-wider text-theme-accent uppercase flex items-center gap-2">
-              <span>05 · PROJECTS (RESUME VERIFIED)</span>
+              <span>05 · COMMERCIAL & RESEARCH PROJECTS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-theme-text tracking-tight mt-1">
-              Featured Systems & Research Projects
+              Commercial Computer Vision Systems & Research
             </h2>
             <p className="text-sm text-theme-secondary mt-1 max-w-xl">
-              Strictly featuring projects documented in my verified resume, from personal computer vision platforms to peer-reviewed published ML research.
+              Production-deployed industrial safety, automated quality control, edge biometric systems, and peer-reviewed research publications.
             </p>
           </div>
 
           {/* Filter Pills */}
           <div className="flex items-center space-x-1.5 bg-theme-surface p-1 rounded-xl border border-theme-border text-xs font-medium shadow-xs">
-            {(['All', 'Featured', 'Machine Learning', 'Research'] as const).map((tab) => (
+            {(['All', 'Commercial Vision', 'Edge AI', 'Research'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -58,7 +58,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
         </div>
 
         {/* Featured Project Spotlight: VisionEye */}
-        {featuredProject && (activeTab === 'All' || activeTab === 'Featured') && (
+        {featuredProject && (activeTab === 'All' || activeTab === 'Commercial Vision') && (
           <div className="mb-12 rounded-2xl bg-theme-card border border-theme-border p-6 sm:p-8 lg:p-10 shadow-lg hover:border-theme-accent/50 transition-all duration-300 relative overflow-hidden group">
             
             {/* Top Accent Gradient Bar */}
