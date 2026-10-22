@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Linkedin, Github, FileText, ArrowUp } from 'lucide-react';
+import { Logo } from './Logo';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -23,10 +24,8 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-theme-border">
           
           <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
-            <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 rounded bg-theme-card border border-theme-border flex items-center justify-center text-[10px] font-bold font-mono text-theme-accent">
-                PV
-              </div>
+            <div className="flex items-center space-x-2.5">
+              <Logo size={28} />
               <span className="font-bold text-sm text-theme-text">PV Sairam Saketh</span>
             </div>
             <span className="text-theme-muted hidden sm:inline-block">·</span>

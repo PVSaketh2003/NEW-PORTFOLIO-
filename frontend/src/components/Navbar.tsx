@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { Logo } from './Logo';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,11 +22,9 @@ export const Navbar: React.FC = () => {
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Left: Monogram & Full Name */}
+          {/* Left: Custom Emblem Logo & Full Name */}
           <a href="#" className="flex items-center space-x-3 group">
-            <div className="w-8 h-8 rounded-lg bg-theme-card border border-theme-border flex items-center justify-center text-xs font-bold font-mono text-theme-accent group-hover:border-theme-accent/60 group-hover:shadow-[0_0_12px_rgba(117,207,255,0.3)] transition-all duration-300 shadow-sm">
-              PV
-            </div>
+            <Logo size={36} />
             <div className="flex flex-col">
               <span className="text-sm sm:text-base font-semibold text-theme-text tracking-tight group-hover:text-theme-accent transition-colors">
                 PV Sairam Saketh
