@@ -14,17 +14,17 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#101216]/90 backdrop-blur-md border-b border-[#2A3240]">
+    <header className="sticky top-0 z-50 bg-[#0B0D12]/90 backdrop-blur-md border-b border-[#273142]">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Left: Understated Brand / Monogram & Name */}
+          {/* Left: Monogram & Full Name */}
           <a href="#" className="flex items-center space-x-3 group">
-            <div className="w-8 h-8 rounded bg-[#1A202B] border border-[#2A3240] flex items-center justify-center text-xs font-semibold text-[#55BFE5] group-hover:border-[#55BFE5]/50 transition-colors">
-              SS
+            <div className="w-8 h-8 rounded-md bg-[#151B26] border border-[#273142] flex items-center justify-center text-xs font-bold text-[#62C6F2] group-hover:border-[#62C6F2]/50 transition-colors">
+              PV
             </div>
-            <span className="text-base font-semibold text-[#F3F5F7] tracking-tight group-hover:text-[#55BFE5] transition-colors">
-              Sairam Saketh
+            <span className="text-base font-semibold text-[#F5F7FA] tracking-tight group-hover:text-[#62C6F2] transition-colors">
+              PV Sairam Saketh
             </span>
           </a>
 
@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-[#A6AFBD] hover:text-[#F3F5F7] transition-colors"
+                className="text-[#A4ADBB] hover:text-[#F5F7FA] transition-colors"
               >
                 {item.name}
               </a>
@@ -47,9 +47,9 @@ export const Navbar: React.FC = () => {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-md border border-[#2A3240] bg-[#1A202B] hover:bg-[#222938] text-xs font-medium text-[#F3F5F7] hover:border-[#55BFE5]/40 transition-colors"
+              className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-md border border-[#273142] bg-[#151B26] hover:bg-[#1B2332] text-xs font-medium text-[#F5F7FA] hover:border-[#62C6F2]/40 transition-colors"
             >
-              <FileText className="w-3.5 h-3.5 text-[#55BFE5]" />
+              <FileText className="w-3.5 h-3.5 text-[#62C6F2]" />
               <span>Resume PDF</span>
             </a>
           </div>
@@ -60,13 +60,13 @@ export const Navbar: React.FC = () => {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded border border-[#2A3240] bg-[#1A202B] text-xs font-medium text-[#F3F5F7]"
+              className="px-2.5 py-1 rounded border border-[#273142] bg-[#151B26] text-xs font-medium text-[#F5F7FA]"
             >
               Resume
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded text-[#A6AFBD] hover:text-[#F3F5F7] hover:bg-[#1A202B] focus:outline-none"
+              className="p-1.5 rounded text-[#A4ADBB] hover:text-[#F5F7FA] hover:bg-[#151B26] focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -77,13 +77,13 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#151922] border-b border-[#2A3240] px-4 pt-2 pb-4 space-y-1">
+        <div className="md:hidden bg-[#11151D] border-b border-[#273142] px-4 pt-2 pb-4 space-y-1">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded text-sm text-[#A6AFBD] hover:text-[#F3F5F7] hover:bg-[#1A202B]"
+              className="block px-3 py-2 rounded text-sm text-[#A4ADBB] hover:text-[#F5F7FA] hover:bg-[#151B26]"
             >
               {item.name}
             </a>

@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from api.models import Profile, Experience, Project, SkillCategory, SkillItem
 
 class Command(BaseCommand):
-    help = 'Seeds database with real portfolio data from P V Sairam Saketh resume'
+    help = 'Seeds database with real portfolio data from PV Sairam Saketh resume'
 
     def handle(self, *args, **kwargs):
         self.stdout.write('Seeding portfolio data...')
@@ -10,7 +10,7 @@ class Command(BaseCommand):
         # Profile
         Profile.objects.all().delete()
         Profile.objects.create(
-            name="P V SAIRAM SAKETH",
+            name="PV Sairam Saketh",
             title="Computer Vision Engineer | Edge AI | Deep Learning | UAV & Defense Systems",
             subtitle="DeepStream, TensorRT, and Embedded Systems Specialist",
             location="Nagpur, Maharashtra, India",

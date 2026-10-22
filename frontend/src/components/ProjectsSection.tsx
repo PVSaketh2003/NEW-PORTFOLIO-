@@ -19,33 +19,33 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
   });
 
   return (
-    <section id="projects" className="py-16 lg:py-24 bg-[#151922] border-b border-[#2A3240]/60">
+    <section id="projects" className="py-16 lg:py-24 bg-[#11151D] border-b border-[#273142]/60">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#2A3240]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#273142]">
           <div>
-            <div className="text-xs font-mono font-semibold tracking-wider text-[#55BFE5] uppercase">
-              ENGINEERING PORTFOLIO
+            <div className="text-xs font-mono font-semibold tracking-wider text-[#62C6F2] uppercase">
+              PORTFOLIO
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#F3F5F7] tracking-tight mt-1">
-              Featured Systems & Technical Projects
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F7FA] tracking-tight mt-1">
+              Selected Engineering Work
             </h2>
-            <p className="text-sm text-[#A6AFBD] mt-1 max-w-xl">
-              Production edge systems, industrial computer vision deployments, and peer-reviewed research.
+            <p className="text-sm text-[#A4ADBB] mt-1 max-w-xl">
+              Real-world computer vision, Edge AI, and software systems built to solve practical problems.
             </p>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center space-x-1.5 mt-4 md:mt-0 bg-[#101216] p-1 rounded-lg border border-[#2A3240] text-xs font-medium">
+          <div className="flex items-center space-x-1.5 mt-4 md:mt-0 bg-[#0B0D12] p-1 rounded-lg border border-[#273142] text-xs font-medium">
             {(['All', 'Featured', 'Commercial', 'Research'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-3 py-1.5 rounded-md transition-colors ${
                   activeTab === tab
-                    ? 'bg-[#1A202B] text-[#F3F5F7] border border-[#2A3240]'
-                    : 'text-[#A6AFBD] hover:text-[#F3F5F7]'
+                    ? 'bg-[#151B26] text-[#F5F7FA] border border-[#273142]'
+                    : 'text-[#A4ADBB] hover:text-[#F5F7FA]'
                 }`}
               >
                 {tab}
@@ -54,38 +54,38 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
           </div>
         </div>
 
-        {/* Featured Card 1: VisionEye Spotlight Banner */}
+        {/* Featured Card: VisionEye Spotlight */}
         {projects.find(p => p.id === 1) && (
-          <div className="mb-12 rounded-xl bg-[#1A202B] border border-[#2A3240] p-6 lg:p-8">
+          <div className="mb-12 rounded-xl bg-[#151B26] border border-[#273142] p-6 lg:p-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center space-x-2 text-xs font-mono text-[#55BFE5]">
+                <div className="inline-flex items-center space-x-2 text-xs font-mono text-[#62C6F2]">
                   <span>FEATURED PLATFORM</span>
                   <span>·</span>
-                  <span className="text-[#A6AFBD]">Real-Time Video Analytics</span>
+                  <span className="text-[#A4ADBB]">Real-Time Foot-Traffic Analytics</span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-[#F3F5F7]">
-                  VisionEye: Real-Time Foot-Traffic Analytics
+                <h3 className="text-2xl font-bold text-[#F5F7FA]">
+                  VisionEye
                 </h3>
 
-                <p className="text-sm text-[#A6AFBD] leading-relaxed">
-                  A full-stack computer vision platform for people detection, multi-object tracking, entry and exit counting, occupancy monitoring, and spatial perspective mapping.
+                <p className="text-sm text-[#A4ADBB] leading-relaxed">
+                  A computer vision platform that detects and tracks people, counts entry and exit events, and supports occupancy and spatial analytics.
                 </p>
 
                 {/* Simplified Architecture Flow */}
                 <div className="pt-2 pb-1">
-                  <div className="text-[11px] font-mono text-[#A6AFBD] mb-2 uppercase tracking-wide">
+                  <div className="text-[11px] font-mono text-[#A4ADBB] mb-2 uppercase tracking-wide">
                     System Architecture Pipeline:
                   </div>
                   <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono">
-                    {["Video Input", "YOLO26n ONNX", "ByteTrack Tracking", "Spatial Logic", "WebSocket Dashboard"].map((step, sIdx, arr) => (
+                    {["Video Input", "Detection", "Tracking", "Entry/Exit Logic", "Analytics Dashboard"].map((step, sIdx, arr) => (
                       <React.Fragment key={sIdx}>
-                        <span className="px-2.5 py-1 rounded bg-[#101216] border border-[#2A3240] text-[#F3F5F7]">
+                        <span className="px-2.5 py-1 rounded bg-[#0B0D12] border border-[#273142] text-[#F5F7FA]">
                           {step}
                         </span>
                         {sIdx < arr.length - 1 && (
-                          <span className="text-[#A6AFBD] text-xs">→</span>
+                          <span className="text-[#A4ADBB] text-xs">→</span>
                         )}
                       </React.Fragment>
                     ))}
@@ -94,7 +94,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
                 {/* Tech Pills */}
                 <div className="flex flex-wrap gap-1.5 pt-2">
-                  {["YOLO26n ONNX", "ByteTrack", "OpenCV", "React", "Django REST", "Django Channels", "Docker"].map((tech, tIdx) => (
+                  {["YOLO26n ONNX", "ByteTrack", "OpenCV", "React", "Django REST Framework", "Django Channels", "WebSockets", "Docker"].map((tech, tIdx) => (
                     <span key={tIdx} className="badge-tag">
                       {tech}
                     </span>
@@ -117,15 +117,15 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                     rel="noopener noreferrer"
                     className="btn-secondary text-xs"
                   >
-                    <Github className="w-3.5 h-3.5 text-[#A6AFBD]" />
-                    <span>GitHub Repository</span>
+                    <Github className="w-3.5 h-3.5 text-[#A4ADBB]" />
+                    <span>View Source Code</span>
                   </a>
 
                   <a
                     href="https://pvsairamsaketh.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 text-xs text-[#55BFE5] hover:text-[#6ED2F5] transition-colors ml-2"
+                    className="inline-flex items-center space-x-1.5 text-xs text-[#62C6F2] hover:text-[#79D1F5] transition-colors ml-2"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Live Project</span>
@@ -134,22 +134,22 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
               </div>
 
               {/* Right column: Schematic diagram illustration */}
-              <div className="lg:col-span-5 bg-[#101216] p-5 rounded-lg border border-[#2A3240] text-xs font-mono text-[#A6AFBD] space-y-3">
-                <div className="text-[#F3F5F7] font-semibold text-xs border-b border-[#2A3240] pb-2 flex items-center justify-between">
+              <div className="lg:col-span-5 bg-[#0B0D12] p-5 rounded-lg border border-[#273142] text-xs font-mono text-[#A4ADBB] space-y-3">
+                <div className="text-[#F5F7FA] font-semibold text-xs border-b border-[#273142] pb-2 flex items-center justify-between">
                   <span>VisionEye Pipeline Execution</span>
-                  <span className="text-[10px] text-[#55BFE5]">Edge Optimized</span>
+                  <span className="text-[10px] text-[#7CE0C3]">Edge Capable</span>
                 </div>
                 <div className="space-y-2 text-[11px]">
-                  <div className="p-2 rounded bg-[#151922] border border-[#2A3240]">
-                    <span className="text-[#55BFE5] block">1. INGESTION & INFERENCE</span>
+                  <div className="p-2 rounded bg-[#151B26] border border-[#273142]">
+                    <span className="text-[#62C6F2] block">1. INGESTION & INFERENCE</span>
                     Lightweight YOLO ONNX model detects targets on frame buffer without cloud round-trip.
                   </div>
-                  <div className="p-2 rounded bg-[#151922] border border-[#2A3240]">
-                    <span className="text-[#55BFE5] block">2. MULTI-OBJECT TRACKING</span>
-                    ByteTrack preserves tracklet IDs through temporary occlusions and intersection.
+                  <div className="p-2 rounded bg-[#151B26] border border-[#273142]">
+                    <span className="text-[#62C6F2] block">2. MULTI-OBJECT TRACKING</span>
+                    ByteTrack preserves tracklet IDs through temporary occlusions and trajectory crossovers.
                   </div>
-                  <div className="p-2 rounded bg-[#151922] border border-[#2A3240]">
-                    <span className="text-[#55BFE5] block">3. 2D PERSPECTIVE MAPPING</span>
+                  <div className="p-2 rounded bg-[#151B26] border border-[#273142]">
+                    <span className="text-[#62C6F2] block">3. 2D PERSPECTIVE MAPPING</span>
                     Planar homography converts camera pixel coordinates to floor plan bird's-eye occupancy.
                   </div>
                 </div>
@@ -163,32 +163,32 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
           {filteredProjects.filter(p => p.id !== 1).map((project) => (
             <div
               key={project.id}
-              className="card-standard p-6 flex flex-col justify-between"
+              className="card-surface p-6 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between text-xs mb-2">
-                  <span className="font-mono text-[#55BFE5] text-[11px]">
+                  <span className="font-mono text-[#62C6F2] text-[11px]">
                     {project.category}
                   </span>
                   {project.metrics && (
-                    <span className="text-[#A6AFBD] font-mono text-[10px]">
+                    <span className="text-[#A4ADBB] font-mono text-[10px]">
                       {project.metrics}
                     </span>
                   )}
                 </div>
 
-                <h3 className="text-base font-semibold text-[#F3F5F7] mb-1.5">
+                <h3 className="text-base font-semibold text-[#F5F7FA] mb-1.5">
                   {project.title}
                 </h3>
 
-                <p className="text-xs text-[#A6AFBD] mb-3 leading-relaxed">
+                <p className="text-xs text-[#A4ADBB] mb-3 leading-relaxed">
                   {project.tagline}
                 </p>
 
-                <ul className="space-y-1.5 mb-4 text-xs text-[#A6AFBD]">
+                <ul className="space-y-1.5 mb-4 text-xs text-[#A4ADBB]">
                   {project.description.map((item, dIdx) => (
                     <li key={dIdx} className="flex items-start space-x-1.5">
-                      <span className="text-[#55BFE5] mt-0.5">·</span>
+                      <span className="text-[#62C6F2] mt-0.5">·</span>
                       <span className="leading-relaxed">{item}</span>
                     </li>
                   ))}
@@ -196,7 +196,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
               </div>
 
               <div>
-                <div className="flex flex-wrap gap-1.5 mb-4 pt-3 border-t border-[#2A3240]/60">
+                <div className="flex flex-wrap gap-1.5 mb-4 pt-3 border-t border-[#273142]/60">
                   {project.technologies.map((tech, tIdx) => (
                     <span key={tIdx} className="badge-tag text-[10px] py-0.5 px-2">
                       {tech}
@@ -210,19 +210,19 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 text-[#A6AFBD] hover:text-[#F3F5F7] transition-colors"
+                      className="inline-flex items-center space-x-1 text-[#A4ADBB] hover:text-[#F5F7FA] transition-colors"
                     >
                       <Github className="w-3.5 h-3.5" />
-                      <span>Code Repository</span>
+                      <span>View Source Code</span>
                     </a>
                   ) : (
-                    <span className="text-[11px] text-[#A6AFBD] font-mono">Defense / Internal System</span>
+                    <span className="text-[11px] text-[#788396] font-mono">Defense / Internal System</span>
                   )}
 
                   {project.modalDetails && (
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="inline-flex items-center space-x-1 text-[#55BFE5] hover:text-[#6ED2F5] transition-colors font-medium"
+                      className="inline-flex items-center space-x-1 text-[#62C6F2] hover:text-[#79D1F5] transition-colors font-medium"
                     >
                       <span>Details</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -240,29 +240,30 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
       {/* Project Details Modal */}
       {selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#1A202B] border border-[#2A3240] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 text-sm">
-            <div className="flex items-start justify-between border-b border-[#2A3240] pb-4">
+          <div className="bg-[#151B26] border border-[#273142] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 text-sm shadow-2xl">
+            <div className="flex items-start justify-between border-b border-[#273142] pb-4">
               <div>
-                <span className="text-xs font-mono text-[#55BFE5] uppercase">
+                <span className="text-xs font-mono text-[#62C6F2] uppercase">
                   {selectedProject.category}
                 </span>
-                <h3 className="text-xl font-bold text-[#F3F5F7] mt-1">
+                <h3 className="text-xl font-bold text-[#F5F7FA] mt-1">
                   {selectedProject.title}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedProject(null)}
-                className="p-1 rounded text-[#A6AFBD] hover:text-[#F3F5F7] hover:bg-[#151922]"
+                className="p-1 rounded text-[#A4ADBB] hover:text-[#F5F7FA] hover:bg-[#11151D]"
+                aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {selectedProject.modalDetails && (
-              <div className="space-y-5 text-[#A6AFBD]">
+              <div className="space-y-5 text-[#A4ADBB]">
                 <div>
-                  <h4 className="text-xs font-mono uppercase text-[#F3F5F7] font-semibold mb-1">
-                    Problem Statement
+                  <h4 className="text-xs font-mono uppercase text-[#F5F7FA] font-semibold mb-1">
+                    The Problem
                   </h4>
                   <p className="leading-relaxed">
                     {selectedProject.modalDetails.problem}
@@ -270,8 +271,8 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono uppercase text-[#F3F5F7] font-semibold mb-1">
-                    Technical Solution
+                  <h4 className="text-xs font-mono uppercase text-[#F5F7FA] font-semibold mb-1">
+                    The Approach & Solution
                   </h4>
                   <p className="leading-relaxed">
                     {selectedProject.modalDetails.solution}
@@ -279,38 +280,38 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono uppercase text-[#F3F5F7] font-semibold mb-2">
-                    Architecture Implementation
+                  <h4 className="text-xs font-mono uppercase text-[#F5F7FA] font-semibold mb-2">
+                    System Architecture
                   </h4>
                   <ul className="space-y-1.5">
                     {selectedProject.modalDetails.architecture.map((arch, i) => (
                       <li key={i} className="flex items-start space-x-2">
-                        <span className="text-[#55BFE5]">▸</span>
-                        <span className="text-xs text-[#F3F5F7]">{arch}</span>
+                        <span className="text-[#62C6F2]">▸</span>
+                        <span className="text-xs text-[#F5F7FA]">{arch}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-3 rounded bg-[#151922] border border-[#2A3240]">
-                    <h5 className="text-[11px] font-mono text-[#F3F5F7] uppercase mb-1">
+                  <div className="p-3 rounded bg-[#11151D] border border-[#273142]">
+                    <h5 className="text-[11px] font-mono text-[#F5F7FA] uppercase mb-1">
                       Key Engineering Decisions
                     </h5>
                     <ul className="text-xs space-y-1">
                       {selectedProject.modalDetails.decisions.map((dec, i) => (
-                        <li key={i} className="text-[#A6AFBD]">· {dec}</li>
+                        <li key={i} className="text-[#A4ADBB]">· {dec}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="p-3 rounded bg-[#151922] border border-[#2A3240]">
-                    <h5 className="text-[11px] font-mono text-[#F3F5F7] uppercase mb-1">
-                      Technical Challenges
+                  <div className="p-3 rounded bg-[#11151D] border border-[#273142]">
+                    <h5 className="text-[11px] font-mono text-[#F5F7FA] uppercase mb-1">
+                      Challenges & Trade-offs
                     </h5>
                     <ul className="text-xs space-y-1">
                       {selectedProject.modalDetails.challenges.map((ch, i) => (
-                        <li key={i} className="text-[#A6AFBD]">· {ch}</li>
+                        <li key={i} className="text-[#A4ADBB]">· {ch}</li>
                       ))}
                     </ul>
                   </div>
@@ -318,7 +319,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
                 {selectedProject.modalDetails.futureWork && (
                   <div>
-                    <h4 className="text-xs font-mono uppercase text-[#F3F5F7] font-semibold mb-1">
+                    <h4 className="text-xs font-mono uppercase text-[#F5F7FA] font-semibold mb-1">
                       Future Improvements
                     </h4>
                     <p className="text-xs leading-relaxed">
@@ -329,7 +330,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
               </div>
             )}
 
-            <div className="pt-4 border-t border-[#2A3240] flex justify-end">
+            <div className="pt-4 border-t border-[#273142] flex justify-end">
               <button
                 onClick={() => setSelectedProject(null)}
                 className="btn-secondary text-xs"

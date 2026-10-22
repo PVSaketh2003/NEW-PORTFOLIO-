@@ -8,25 +8,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        canvas: {
-          DEFAULT: '#101216',
-          section: '#151922',
-          card: '#1A202B',
-          hover: '#222938',
+        dark: {
+          bg: '#0B0D12',
+          section: '#11151D',
+          card: '#151B26',
+          hover: '#1B2332',
         },
-        border: {
-          subtle: '#2A3240',
-          hover: '#3D4759',
-        },
-        accent: {
-          DEFAULT: '#55BFE5',
-          hover: '#6ED2F5',
-          teal: '#2DD4BF',
-        },
-        slate: {
-          primary: '#F3F5F7',
-          secondary: '#A6AFBD',
-          muted: '#6B7688',
+        brand: {
+          blue: '#62C6F2',
+          teal: '#7CE0C3',
+          border: '#273142',
+          borderHover: '#38465C',
+          text: '#F5F7FA',
+          secondary: '#A4ADBB',
+          muted: '#788396',
         }
       },
       fontFamily: {

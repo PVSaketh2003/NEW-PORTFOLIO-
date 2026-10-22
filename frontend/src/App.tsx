@@ -34,7 +34,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#101216] text-[#F3F5F7] flex flex-col font-sans selection:bg-[#55BFE5] selection:text-[#101216]">
+    <div className="min-h-screen bg-[#0B0D12] text-[#F5F7FA] flex flex-col font-sans selection:bg-[#62C6F2] selection:text-[#0B0D12]">
       <Navbar />
       <main className="flex-grow">
         <Hero />

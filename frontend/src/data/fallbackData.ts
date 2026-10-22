@@ -1,22 +1,22 @@
 import { Profile, Experience, Project, SkillGroup } from '../types';
 
 export const initialProfile: Profile = {
-  name: "Sairam Saketh",
-  title: "Computer Vision Engineer · Edge AI",
-  subtitle: "Building practical AI systems from vision models to edge deployment",
+  name: "PV Sairam Saketh",
+  title: "Computer Vision Engineer | Edge AI | Deep Learning | Real-Time Vision Systems",
+  subtitle: "Turning computer vision research into real-world AI systems",
   location: "Nagpur, Maharashtra, India",
   email: "pvsairamsaketh@gmail.com",
   phone: "+91 9359587816",
   linkedin: "https://linkedin.com/in/pvsaketh",
   github: "https://github.com/PVSaketh2003",
   portfolio: "https://portfolio.pvsairamsaketh.in",
-  summary: "I'm a Computer Vision Engineer working across deep learning, real-time video analytics, embedded inference, and industrial AI. I build end-to-end systems that connect computer vision models with practical software and hardware deployments."
+  summary: "I'm PV Sairam Saketh, a Computer Vision Engineer focused on deep learning, real-time video analytics, and Edge AI deployment. I work across the pipeline, from object detection and model optimization to deploying vision systems on resource-constrained hardware."
 };
 
 export const initialCareerHighlights = [
   { label: "Professional Experience", value: "1+ Year", detail: "Defense UAV & Industrial AI" },
-  { label: "Commercial CV Systems", value: "4 Projects", detail: "PPE, Fuze, Process, Face Count" },
-  { label: "Industrial Dataset Trained", value: "10,000 Imgs", detail: "Delay plant deviation models" },
+  { label: "Commercial AI Projects", value: "4 Concurrent", detail: "PPE, Fuze, Process, Face Count" },
+  { label: "Industrial Dataset Trained", value: "10,000 Images", detail: "Process-deviation monitoring" },
   { label: "Undergraduate Academics", value: "9.33 / 10", detail: "B.Tech CSE, SRM University" },
 ];
 
@@ -103,13 +103,14 @@ export const initialExperiences: Experience[] = [
 export const initialProjects: Project[] = [
   {
     id: 1,
-    title: "VisionEye: Real-Time Foot-Traffic Analytics",
-    category: "Featured System",
-    tagline: "Computer vision platform for people detection, tracking, entry/exit counting, and spatial perspective mapping",
+    title: "VisionEye",
+    category: "Featured Platform",
+    tagline: "Real-Time Foot-Traffic Analytics",
     description: [
-      "Engineered real-time people detection and multi-object tracking using YOLO26n ONNX and ByteTrack for accurate foot-traffic counts.",
-      "Implemented bidirectional entry/exit counting logic, zone occupancy tracking, and 2D perspective bird's-eye projection.",
-      "Built a full-stack platform featuring React 18, Django REST Framework, Django Channels WebSockets for live video streaming, and Docker deployment."
+      "A computer vision platform that detects and tracks people, counts entry and exit events, and supports occupancy and spatial analytics.",
+      "Pairs lightweight YOLO26n ONNX models with ByteTrack Kalman filter tracking for occlusion-resistant tracking.",
+      "Calculates bidirectional tripwire crossings and generates 2D planar bird's-eye occupancy maps.",
+      "Full-stack architecture featuring React 18, Django REST Framework, Django Channels WebSockets for live telemetry, and Docker containerization."
     ],
     metrics: "Real-time edge tracking, 2D perspective transformation, WebSocket telemetry",
     technologies: ["YOLO26n ONNX", "ByteTrack", "OpenCV", "React", "Django REST Framework", "Django Channels", "WebSockets", "Docker"],
@@ -117,11 +118,11 @@ export const initialProjects: Project[] = [
     githubUrl: "https://github.com/PVSaketh2003/In-out-Project-",
     isFeatured: true,
     architectureSteps: [
-      "Video Input (RTSP / USB Camera)",
-      "Object Detection (YOLO26n ONNX)",
-      "Multi-Object Tracking (ByteTrack)",
-      "Entry / Exit & Spatial Logic",
-      "WebSocket Analytics Dashboard"
+      "Video Input",
+      "Detection (YOLO ONNX)",
+      "Tracking (ByteTrack)",
+      "Entry/Exit Logic",
+      "Analytics Dashboard"
     ],
     modalDetails: {
       problem: "Facility operators require automated, accurate foot-traffic intelligence without recording identifiable personal footage or requiring costly specialized counting sensors.",
@@ -150,7 +151,7 @@ export const initialProjects: Project[] = [
     category: "Commercial Vision",
     tagline: "Automated plant safety compliance and state-machine violation detection across 10,000 images",
     description: [
-      "Trained 3 YOLO26x detection models on 10,000 defense plant images, achieving 70% mAP50 and 43% mAP50-95.",
+      "Trained 3 YOLO26x detection models on 10,000 defense plant images, achieving verified results of 70% mAP50 and 43% mAP50-95.",
       "Designed a Finite State Machine (FSM) to detect procedural safety violations (door open/closed, fan status, workbench safety).",
       "Engineered CIELAB color-space analysis to automatically trigger process events when chemical solutions reach specific color thresholds."
     ],
@@ -245,24 +246,33 @@ export const initialProjects: Project[] = [
 
 export const initialSkillGroups: SkillGroup[] = [
   {
-    category: "Computer Vision & Deep Learning",
+    category: "Computer Vision",
     skills: [
       "OpenCV",
       "YOLOv8 / YOLO26",
-      "ByteTrack Tracking",
-      "SCRFD Face Detection",
-      "ArcFace Recognition",
-      "PyTorch",
-      "Keras",
-      "CNN Architectures",
-      "Thermal / IR Object Detection",
+      "Object Detection",
+      "Multi-Object Tracking (ByteTrack)",
+      "Face Detection (SCRFD)",
+      "Face Recognition (ArcFace)",
       "Image Processing",
+      "Thermal / IR Object Detection",
       "Video Analytics",
       "Finite State Machines (FSM)"
     ]
   },
   {
-    category: "Edge AI & Deployment",
+    category: "Deep Learning",
+    skills: [
+      "PyTorch",
+      "TensorFlow / Keras",
+      "CNN Architectures",
+      "Model Evaluation",
+      "Data Augmentation",
+      "Training Pipelines"
+    ]
+  },
+  {
+    category: "Edge AI",
     skills: [
       "NVIDIA Jetson Orin Nano",
       "TensorRT FP16 / INT8",
@@ -270,14 +280,11 @@ export const initialSkillGroups: SkillGroup[] = [
       "NVIDIA DeepStream SDK",
       "GStreamer Pipelines",
       "Real-Time Inference",
-      "RTSP Streaming",
-      "Docker & Containers",
-      "GitHub Actions CI/CD",
-      "Kubernetes (k3s)"
+      "RTSP Streaming"
     ]
   },
   {
-    category: "Programming Languages",
+    category: "Programming",
     skills: [
       "Python 3.x",
       "C++ (Embedded / Vision)",
@@ -289,29 +296,18 @@ export const initialSkillGroups: SkillGroup[] = [
     ]
   },
   {
-    category: "Machine Learning & Data",
+    category: "Software and Infrastructure",
     skills: [
-      "Scikit-learn",
-      "Classification & Regression",
-      "Random Forest",
-      "Support Vector Machines (SVM)",
-      "K-Nearest Neighbors (KNN)",
-      "NumPy",
-      "Pandas",
-      "Matplotlib & Seaborn",
-      "Exploratory Data Analysis (EDA)"
-    ]
-  },
-  {
-    category: "Tools & Platforms",
-    skills: [
+      "React 18",
+      "Django & Django REST Framework",
+      "REST APIs",
+      "Docker & Containers",
+      "GitHub Actions CI/CD",
       "Linux / Ubuntu LTS",
       "Git & GitHub",
-      "GitLab",
-      "Nginx",
       "PostgreSQL",
-      "Django & Django REST Framework",
-      "React 18"
+      "Nginx",
+      "Kubernetes (k3s)"
     ]
   }
 ];

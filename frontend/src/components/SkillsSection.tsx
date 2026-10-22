@@ -3,18 +3,18 @@ import { initialSkillGroups } from '../data/fallbackData';
 
 export const SkillsSection: React.FC = () => {
   return (
-    <section id="skills" className="py-16 lg:py-24 bg-[#151922] border-b border-[#2A3240]/60">
+    <section id="skills" className="py-16 lg:py-24 bg-[#11151D] border-b border-[#273142]/60">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="mb-12">
-          <div className="text-xs font-mono font-semibold tracking-wider text-[#55BFE5] uppercase">
+          <div className="text-xs font-mono font-semibold tracking-wider text-[#62C6F2] uppercase">
             TECHNICAL COMPETENCIES
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#F3F5F7] tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F7FA] tracking-tight mt-1">
             Skills & Applied Technologies
           </h2>
-          <p className="text-sm text-[#A6AFBD] mt-1 max-w-xl">
+          <p className="text-sm text-[#A4ADBB] mt-1 max-w-xl">
             Core toolchains, frameworks, embedded platforms, and programming languages applied across projects.
           </p>
         </div>
@@ -24,18 +24,19 @@ export const SkillsSection: React.FC = () => {
           {initialSkillGroups.map((group, idx) => (
             <div
               key={idx}
-              className="card-standard p-6 flex flex-col justify-between"
+              className="card-surface p-6 flex flex-col justify-between"
             >
               <div>
-                <h3 className="text-sm font-semibold text-[#F3F5F7] uppercase tracking-wider mb-4 font-mono pb-2 border-b border-[#2A3240]">
-                  {group.category}
+                <h3 className="text-sm font-semibold text-[#F5F7FA] uppercase tracking-wider mb-4 font-mono pb-2 border-b border-[#273142] flex items-center justify-between">
+                  <span>{group.category}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#62C6F2]" />
                 </h3>
 
                 <div className="flex flex-wrap gap-2">
                   {group.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="px-2.5 py-1 rounded-md bg-[#101216] border border-[#2A3240] text-xs font-medium text-[#F3F5F7] hover:border-[#55BFE5]/40 transition-colors"
+                      className="px-2.5 py-1 rounded-md bg-[#0B0D12] border border-[#273142] text-xs font-medium text-[#F5F7FA] hover:border-[#62C6F2]/40 transition-colors"
                     >
                       {skill}
                     </span>
