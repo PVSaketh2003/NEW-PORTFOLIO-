@@ -129,7 +129,7 @@ class PortfolioApiTests(TestCase):
         self.assertIn('message', response.data)
 
     @patch('django.core.mail.EmailMessage.send')
-    def test_contact_submission_smtp_failure_returns_503(self, mock_send):
+    def test_contact_submission_smtp_failure_records_message_and_returns_201(self, mock_send):
         mock_send.side_effect = smtplib.SMTPConnectError(421, b"Connection refused by mail server")
         url = reverse('api-contact')
         payload = {
@@ -139,10 +139,10 @@ class PortfolioApiTests(TestCase):
             "message": "Autonomous detection systems required on edge nodes."
         }
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
-        self.assertIn('SMTP delivery could not complete', response.data['detail'])
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(response.data['success'])
 
-        # Message is saved in DB, but email_sent is False
+        # Message is saved in DB, but email_sent is False with delivery_error logged
         self.assertEqual(ContactMessage.objects.count(), 1)
         record = ContactMessage.objects.first()
         self.assertFalse(record.email_sent)

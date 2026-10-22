@@ -148,33 +148,27 @@ class ContactView(APIView):
         )
         has_smtp_credentials = bool(settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD)
 
-        if not has_smtp_credentials and not is_test_or_console:
-            err_msg = "SMTP credentials (EMAIL_HOST_USER, EMAIL_HOST_PASSWORD) are not configured on the server."
-            logger.warning(err_msg)
+        if has_smtp_credentials or is_test_or_console:
+            try:
+                email.send(fail_silently=False)
+                contact_msg.email_sent = True
+                contact_msg.delivery_error = None
+                contact_msg.save(update_fields=['email_sent', 'delivery_error'])
+                logger.info(f"Contact email successfully delivered for {contact_msg.email}")
+            except (smtplib.SMTPException, socket.error, Exception) as exc:
+                exc_name = type(exc).__name__
+                logger.error(f"SMTP delivery failed ({exc_name}): {str(exc)}")
+                contact_msg.email_sent = False
+                contact_msg.delivery_error = f"{exc_name}: {str(exc)}"
+                contact_msg.save(update_fields=['email_sent', 'delivery_error'])
+        else:
+            logger.info(f"Contact message from {contact_msg.email} saved to database; awaiting SMTP credentials.")
             contact_msg.email_sent = False
-            contact_msg.delivery_error = err_msg
+            contact_msg.delivery_error = "Pending SMTP credentials"
             contact_msg.save(update_fields=['email_sent', 'delivery_error'])
-            return Response({
-                "detail": "Email dispatch service is currently awaiting SMTP configuration. Your message has been securely recorded in our database, or you can email pvsairamsaketh@gmail.com directly."
-            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
-        try:
-            email.send(fail_silently=False)
-            contact_msg.email_sent = True
-            contact_msg.delivery_error = None
-            contact_msg.save(update_fields=['email_sent', 'delivery_error'])
-            logger.info(f"Contact email successfully delivered for {contact_msg.email}")
-            return Response({
-                "success": True,
-                "message": "Your message has been sent successfully! I will get back to you shortly."
-            }, status=status.HTTP_201_CREATED)
-        except (smtplib.SMTPException, socket.error, Exception) as exc:
-            exc_name = type(exc).__name__
-            logger.error(f"SMTP delivery failed ({exc_name}): {str(exc)}")
-            contact_msg.email_sent = False
-            contact_msg.delivery_error = f"{exc_name}: {str(exc)}"
-            contact_msg.save(update_fields=['email_sent', 'delivery_error'])
-            return Response({
-                "detail": f"SMTP delivery could not complete at this time ({exc_name}). Your message was saved in our database. Please email pvsairamsaketh@gmail.com directly."
-            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response({
+            "success": True,
+            "message": f"Thank you, {contact_msg.name}! Your message has been received and securely recorded. I will get back to you shortly."
+        }, status=status.HTTP_201_CREATED)
 
