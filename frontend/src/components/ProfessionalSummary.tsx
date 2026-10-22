@@ -54,13 +54,11 @@ export const ProfessionalSummary: React.FC = () => {
             <div className="space-y-4 text-sm sm:text-base text-theme-secondary leading-relaxed">
               <p>
                 I am a <strong className="text-theme-text font-semibold">Computer Vision Engineer</strong> with{' '}
-                <strong className="text-theme-text font-semibold">1.5 years of experience at Solar Industries India Limited</strong> (Solar Defence and Aerospace Limited), 
+                <strong className="text-theme-text font-semibold">1.5 years of experience across Solar Industries India Limited and Solar Defence and Aerospace Limited</strong>, 
                 specializing in deep learning, real-time video analytics, and embedded Edge AI deployment.
               </p>
               <p>
-                Currently, I engineer low-latency vision pipelines on <strong className="text-theme-text font-medium">NVIDIA Jetson Orin Nano</strong> for the 
-                <strong className="text-theme-text font-medium"> CALM (Canister Launched Anti-Armoured Loiter Munition)</strong> UAV program, 
-                while concurrently delivering 4 commercial computer vision systems spanning PPE compliance, X-ray munitions flaw detection, 10,000-image plant process-deviation monitoring (70% mAP50), and CCTV face recognition.
+                From <strong className="text-theme-text font-medium">July 2025 to July 2026</strong>, I worked on the <strong className="text-theme-text font-medium">CALM (Canister Launched Anti-Armoured Loiter Munition)</strong> project in Solar Defence & Aerospace, developing a deep learning model for Infrared (IR) thermal vehicle detection. From <strong className="text-theme-text font-medium">August 2026 to present</strong>, I work on the commercial side of Solar Industries, engineering 4 production computer vision systems: Process Deviation for Defence Plant (10,000-image dataset, 70% mAP50, FSM), Facial Recognition for Head Count Project (Chakhdoh Plant), PPEs Detection (Chakhdoh Plant), and PDM 557 Fuze X-ray defect inspection (PYRO Plant).
               </p>
               <p>
                 I bridge the gap between machine learning models and production deployment: converting PyTorch models into TensorRT FP16 engines, orchestrating DeepStream multimedia pipelines, and integrating vision outputs into robust software layers.

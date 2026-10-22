@@ -37,8 +37,8 @@ export const Hero: React.FC = () => {
             {/* Concise Introduction */}
             <p className="text-base sm:text-lg text-theme-secondary leading-relaxed max-w-2xl">
               I'm <strong className="text-theme-text font-semibold">PV Sairam Saketh</strong>, a Computer Vision Engineer with{' '}
-              <span className="text-theme-text font-semibold">1.5 years of experience at Solar Industries India Limited</span>. 
-              I design and deploy real-time deep learning pipelines on NVIDIA Jetson embedded hardware for defense UAV and industrial safety applications.
+              <span className="text-theme-text font-semibold">1.5 years of experience across Solar Industries India Limited and Solar Defence & Aerospace</span>. 
+              From Infrared (IR) thermal vehicle detection on the CALM Loiter Munition UAV to deploying 4 commercial computer vision systems for defense and chemical plant safety.
             </p>
 
             {/* Action Buttons */}

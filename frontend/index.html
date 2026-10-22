@@ -15,19 +15,25 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://portfolio.pvsairamsaketh.in" />
 
-    <!-- Theme initialization to prevent flash -->
+    <!-- Theme initialization to prevent flash: Defaults to LIGHT -->
     <script>
       (function() {
         try {
           var saved = localStorage.getItem('theme');
-          if (saved === 'light') {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.style.colorScheme = 'light';
-          } else {
+          if (saved === 'dark') {
             document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
             document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.documentElement.style.colorScheme = 'light';
           }
-        } catch (e) {}
+        } catch (e) {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          document.documentElement.style.colorScheme = 'light';
+        }
       })();
     </script>
 

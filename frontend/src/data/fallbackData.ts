@@ -2,7 +2,7 @@ import { Profile, Experience, Internship, Project, SkillGroup } from '../types';
 
 export const initialProfile: Profile = {
   name: "PV Sairam Saketh",
-  title: "Computer Vision Engineer | Edge AI | Deep Learning | UAV & Defense Systems",
+  title: "Computer Vision Engineer | Edge AI | Deep Learning | Industrial & Defense Systems",
   subtitle: "Turning computer vision research into real-world AI systems",
   location: "Nagpur, Maharashtra, India",
   email: "pvsairamsaketh@gmail.com",
@@ -10,12 +10,12 @@ export const initialProfile: Profile = {
   linkedin: "https://linkedin.com/in/pvsaketh",
   github: "https://github.com/PVSaketh2003",
   portfolio: "https://portfolio.pvsairamsaketh.in",
-  summary: "Computer Vision Engineer with 1.5 years of experience at Solar Industries India Limited (Solar Defence and Aerospace Limited), designing and deploying real-time, production-grade AI systems for UAV, defense, and industrial-safety applications. Currently engineering low-latency computer vision pipelines on NVIDIA Jetson Orin Nano for the CALM (Canister Launched Anti-Armoured Loiter Munition) program while delivering 4 concurrent commercial AI projects. Core expertise in object detection (YOLOv8/YOLO26), model optimization (PyTorch to ONNX to TensorRT FP16), DeepStream and GStreamer video pipelines, multi-object tracking (ByteTrack), face recognition (SCRFD + ArcFace), and embedded Edge AI deployment. Published researcher with a B.Tech in Computer Science Engineering (CGPA 9.33/10)."
+  summary: "Computer Vision Engineer with 1.5 years of experience across Solar Industries India Limited and Solar Defence and Aerospace Limited. From July 2025 to July 2026, researched and engineered deep learning models for Infrared (IR) thermal vehicle detection on the CALM Loiter Munition UAV program. From August 2026 to present, leading 4 commercial computer vision projects for plant automation, safety, and defect inspection across Solar Industries manufacturing facilities. Core expertise in object detection (YOLOv8/YOLO26), TensorRT FP16 quantization, DeepStream video pipelines, multi-object tracking (ByteTrack), facial biometrics (SCRFD + ArcFace), and embedded Edge AI deployment."
 };
 
 export const initialCareerHighlights = [
-  { label: "Solar Industries India Limited", value: "1.5 Years", detail: "Executive CV Engineer · UAV Division" },
-  { label: "Commercial CV Projects", value: "4 Concurrent", detail: "PPEs Detection · Process Deviation · Face Recognition · PDM 557 Fuze" },
+  { label: "Solar Industries India Limited", value: "1.5 Years", detail: "Commercial Division & Solar Defence & Aerospace" },
+  { label: "Commercial CV Projects", value: "4 Production", detail: "Process Deviation · Facial Recognition · PPEs Detection · PDM 557 Fuze" },
   { label: "Industrial Dataset Trained", value: "10,000 Images", detail: "Process-deviation monitoring (70% mAP50)" },
   { label: "Undergraduate Academics", value: "9.33 / 10", detail: "B.Tech CSE, SRM University" },
 ];
@@ -24,25 +24,40 @@ export const initialExperiences: Experience[] = [
   {
     id: 1,
     role: "Executive – Computer Vision Engineer",
-    company: "Solar Industries India Limited (Solar Defence and Aerospace Limited)",
+    company: "Solar Industries India Limited (Commercial Division)",
     location: "Nagpur, India | On-site",
-    duration: "Jul 2025 – Present (1.5 Years)",
-    division: "UAV Division & Industrial Automation",
-    summary: "Architecting and deploying edge AI computer vision solutions for UAV defense surveillance while delivering concurrent commercial vision systems for plant safety and automated quality control.",
+    duration: "Aug 2026 – Present",
+    division: "Commercial Side · Industrial Plant Automation & Safety",
+    summary: "Engineering and deploying 4 commercial production-grade computer vision systems across industrial manufacturing and defense plants, delivering automated process deviation detection, biometric headcount recognition, PPE safety compliance, and munitions X-ray defect inspection.",
     highlights: [
-      "CALM Loiter Munition UAV: Architected and deployed object detection, recognition, and identification software for UAV surveillance systems, improving target-identification reliability under field conditions.",
-      "Infrared (IR) Thermal Vision: Developing an infrared thermal object detection pipeline for accurate tank and armor detection, extending UAV mission capability to low-visibility and night conditions.",
-      "Edge Hardware Optimization: Quantized and converted PyTorch (.pt) models to ONNX and serialized TensorRT FP16 engines on NVIDIA Jetson Orin Nano, cutting inference latency and raising FPS for real-time onboard processing.",
-      "Multimedia Streaming: Built end-to-end DeepStream and GStreamer pipelines covering video ingestion, hardware preprocessing, inference, post-processing, encoding, and live streaming to Ground Control Stations (GCS).",
-      "PPEs Detection (Chakhdoh Plant): Trained and deployed a safety compliance detection model monitoring mandatory protective gear during hazardous chemical composition mixing.",
-      "PDM 557 Fuze X-ray Defect Detection: Built flaw-classification software for munitions X-ray imagery using morphological filters, adaptive thresholding, contour area analysis, and trained YOLO26x models; built with Rust and React JS for plant server deployment.",
-      "Process Deviation of Delay Plant: Collected and annotated 10,000 defense plant images and trained 3 YOLO26x models (achieving 70% mAP50 and 43% mAP50-95); coupled detection with a Finite State Machine (FSM) and CIELAB color-space analysis to automate chemical process triggers.",
-      "Face Recognition for Head Count Project: Benchmarked face detectors (YuNet, RetinaFace, SCRFD) and recognizers (SFace, ArcFace, AdaFace); selected SCRFD + ArcFace and resolved multi-person duplicate embeddings through an ROI-first sampling workflow at 5 FPS."
+      "Process Deviation for Defence Plant: Collected, annotated, and augmented 10,000 defense plant images; trained 3 custom YOLO26x models (achieving 70% mAP50 and 43% mAP50-95), coupling visual inference with a deterministic Finite State Machine (FSM) and CIELAB color-space Delta-E analysis to automate chemical process transition triggers.",
+      "Facial Recognition for Head Count Project (Chakhdoh Plant): Conducted rigorous benchmarks across face detectors (YuNet, RetinaFace, SCRFD) and feature extractors (SFace, ArcFace, AdaFace); architected an edge biometric system combining SCRFD with ArcFace 512-D embeddings and designed an ROI-first spatial sampling workflow operating at 5 FPS to eliminate duplicate identities.",
+      "PPEs Detection (Chakhdoh Plant): Engineered and deployed an end-to-end real-time safety compliance monitoring pipeline detecting safety helmets, high-visibility vests, safety goggles, and protective gloves during hazardous chemical operations, running TensorRT FP16 models at 30+ FPS.",
+      "PDM 557 Fuze for PYRO Plant: Architected munitions X-ray flaw classification software combining morphological digital filters, adaptive thresholding, contour profiling, and custom YOLO26x models; built plant workstation software with a high-performance Rust backend and React JS inspection dashboard."
     ],
     technologies: [
-      "Python", "PyTorch", "OpenCV", "YOLOv8", "YOLO26", "TensorRT FP16", 
-      "ONNX", "DeepStream SDK", "GStreamer", "NVIDIA Jetson Orin Nano", 
-      "Linux (Ubuntu 22.04)", "Rust", "React JS", "FastAPI", "FSM"
+      "Python", "PyTorch", "OpenCV", "YOLOv8", "YOLO26x", "TensorRT FP16", 
+      "Rust", "React JS", "Finite State Machine (FSM)", "CIELAB Color Space", 
+      "SCRFD", "ArcFace", "GStreamer", "NVIDIA Jetson", "FastAPI"
+    ]
+  },
+  {
+    id: 2,
+    role: "Computer Vision Engineer – UAV Defense Systems",
+    company: "Solar Defence and Aerospace Limited (Solar Industries India Limited)",
+    location: "Nagpur, India | On-site",
+    duration: "Jul 2025 – Jul 2026 (1 Year)",
+    division: "Defense UAV Division · Loiter Munition Program",
+    summary: "Researched and engineered embedded computer vision architectures for aerial surveillance and loiter munition payloads, focusing on Infrared (IR) thermal vehicle detection and low-latency edge deployment.",
+    highlights: [
+      "CALM Loiter Munition UAV: Researched and created a deep learning computer vision model (prototype/pre-deployment) for Infrared (IR) thermal detection of vehicles and cars under low-visibility and night conditions for the CALM (Canister Launched Anti-Armoured Loiter Munition) program.",
+      "Embedded Hardware Acceleration: Quantized PyTorch deep learning models to ONNX and serialized TensorRT FP16 engines on NVIDIA Jetson Orin Nano, evaluating inference latency and FPS for edge UAV mission constraints.",
+      "Multimedia Streaming Architecture: Designed DeepStream SDK and GStreamer video ingestion, preprocessing, inference, and encoding pipelines for live streaming video telemetry feeds to Ground Control Stations (GCS)."
+    ],
+    technologies: [
+      "Python", "PyTorch", "NVIDIA Jetson Orin Nano", "TensorRT FP16", 
+      "ONNX", "DeepStream SDK", "GStreamer", "Infrared (IR) Thermal Vision", 
+      "YOLOv8", "OpenCV", "Linux (Ubuntu 22.04)"
     ]
   }
 ];
@@ -184,49 +199,7 @@ export const initialSkillGroups: SkillGroup[] = [
 export const initialProjects: Project[] = [
   {
     id: 1,
-    title: "PPEs detection",
-    category: "Commercial Project · Industrial Safety",
-    tagline: "Real-time safety compliance detection monitoring mandatory protective gear during hazardous chemical operations",
-    description: [
-      "Engineered an end-to-end Computer Vision PPE compliance pipeline detecting safety helmets, high-visibility vests, safety goggles, and protective gloves in real time across hazardous chemical composition mixing zones (Chakhdoh Plant).",
-      "Ingested multi-camera RTSP video streams using OpenCV and GStreamer, implementing background filtering and spatial ROI zoning to eliminate false positives in dynamic plant environments.",
-      "Optimized PyTorch deep learning models to ONNX and serialized TensorRT FP16 engines on NVIDIA edge hardware, achieving steady 30+ FPS real-time inference with sub-40ms latency.",
-      "Developed automated safety violation event triggers, audit image logging, and alert reporting pipelines, drastically reducing plant inspection overhead and enforcing OSHA safety compliance."
-    ],
-    metrics: "30+ FPS Real-Time Inference · Sub-40ms Latency · Multi-Class PPE Tracking",
-    technologies: ["Python", "PyTorch", "YOLOv8", "TensorRT FP16", "OpenCV", "GStreamer", "NVIDIA Jetson", "Edge AI", "RTSP"],
-    isFeatured: false,
-    architectureSteps: [
-      "Multi-RTSP Camera Ingestion",
-      "Spatial ROI Geometry Filtering",
-      "TensorRT FP16 Multi-Class Inference",
-      "Temporal Violation Smoothing",
-      "Safety Alert & Audit Logging"
-    ],
-    modalDetails: {
-      problem: "Plant operators in hazardous chemical composition mixing zones faced severe safety risks if personnel entered without mandatory PPE (helmets, vests, goggles, gloves). Manual compliance inspections were intermittent and prone to human oversight.",
-      solution: "Engineered a high-throughput edge AI computer vision pipeline streaming multi-camera RTSP feeds directly into TensorRT-accelerated YOLO models with temporal smoothing to eliminate false alarms and generate real-time safety alerts.",
-      architecture: [
-        "Ingestion: Multi-channel RTSP video streams captured via hardware-accelerated GStreamer pipelines.",
-        "Preprocessing: Dynamic perspective cropping and spatial ROI zoning isolating hazardous equipment perimeters.",
-        "Inference: Quantized YOLOv8 PyTorch models exported to ONNX and serialized to TensorRT FP16 engines for sub-40ms edge processing.",
-        "Post-processing: Temporal persistence filtering requiring 3 consecutive non-compliant frames before flagging violations.",
-        "Alerting: Automated event triggers with timestamped visual audit frames dispatched to plant safety managers."
-      ],
-      challenges: [
-        "Extreme lighting reflections off chemical stainless steel storage tanks causing specular false positives.",
-        "Heavy occlusions when technicians worked behind industrial mixers and pipes."
-      ],
-      decisions: [
-        "Employed FP16 TensorRT quantization to maximize frame rates on NVIDIA edge devices without compromising detection accuracy.",
-        "Integrated ROI spatial zoning to restrict inference focus to designated safety-critical boundaries."
-      ],
-      futureWork: "Integrating edge audio alert sirens directly triggered over MQTT upon persistent safety infractions."
-    }
-  },
-  {
-    id: 2,
-    title: "Process Deviation of Delay Plant",
+    title: "Process Deviation for Defence Plant",
     category: "Commercial Project · Process Automation",
     tagline: "Automated chemical manufacturing monitoring using custom deep learning models, Finite State Machines (FSM), and CIELAB color-space analysis",
     description: [
@@ -267,15 +240,15 @@ export const initialProjects: Project[] = [
     }
   },
   {
-    id: 3,
-    title: "Face recogntion for Head Count Project",
+    id: 2,
+    title: "Facial Recognition for Head Count Project for Chakhdoh Plant",
     category: "Commercial Project · Biometrics & Edge AI",
     tagline: "Scalable real-time CCTV edge biometric face recognition and automated workforce attendance tracking at 5 FPS",
     description: [
       "Conducted extensive quantitative benchmarking across modern face detectors (YuNet, RetinaFace, SCRFD) and deep face recognition architectures (SFace, ArcFace, AdaFace).",
       "Architected a dual-stage edge biometric pipeline combining ultra-lightweight SCRFD face localization with ArcFace deep angular margin loss embeddings.",
       "Eliminated multi-person duplicate embeddings and identity collisions in dense crowds by designing a novel Region-of-Interest (ROI-first) spatial sampling workflow operating smoothly at 5 FPS.",
-      "Integrated with centralized database infrastructure for real-time headcount reconciliation, automated attendance tracking, and restricted facility access verification."
+      "Integrated with centralized database infrastructure for real-time headcount reconciliation, automated attendance tracking, and restricted facility access verification at Chakhdoh Plant."
     ],
     metrics: "Sub-50ms Biometric Ingestion · Zero Duplicate Embeddings · Dense Crowd Scalability",
     technologies: ["Python", "SCRFD", "ArcFace", "OpenCV", "PyTorch", "ByteTrack", "Vector Embeddings", "NVIDIA Jetson", "Biometrics"],
@@ -288,7 +261,7 @@ export const initialProjects: Project[] = [
       "Cosine Similarity & Headcount Reconciliation"
     ],
     modalDetails: {
-      problem: "Facility checkpoints suffered from queue bottlenecks and duplicate attendance logs when dense groups of workers passed through surveillance choke points simultaneously.",
+      problem: "Chakhdoh facility checkpoints suffered from queue bottlenecks and duplicate attendance logs when dense groups of workers passed through surveillance choke points simultaneously.",
       solution: "Developed an edge-accelerated biometric pipeline pairing SCRFD face detection with ArcFace 512-dimensional angular margin embeddings, governed by an ROI-first sampling workflow that prevents duplicate vector extractions.",
       architecture: [
         "Acquisition: Industrial IP cameras streaming H.264 video at 1080p over RTSP.",
@@ -309,12 +282,54 @@ export const initialProjects: Project[] = [
     }
   },
   {
+    id: 3,
+    title: "PPEs detection for Chakhdoh Plant",
+    category: "Commercial Project · Industrial Safety",
+    tagline: "Real-time safety compliance detection monitoring mandatory protective gear during hazardous chemical operations",
+    description: [
+      "Engineered an end-to-end Computer Vision PPE compliance pipeline detecting safety helmets, high-visibility vests, safety goggles, and protective gloves in real time across hazardous chemical composition mixing zones (Chakhdoh Plant).",
+      "Ingested multi-camera RTSP video streams using OpenCV and GStreamer, implementing background filtering and spatial ROI zoning to eliminate false positives in dynamic plant environments.",
+      "Optimized PyTorch deep learning models to ONNX and serialized TensorRT FP16 engines on NVIDIA edge hardware, achieving steady 30+ FPS real-time inference with sub-40ms latency.",
+      "Developed automated safety violation event triggers, audit image logging, and alert reporting pipelines, drastically reducing plant inspection overhead and enforcing OSHA safety compliance."
+    ],
+    metrics: "30+ FPS Real-Time Inference · Sub-40ms Latency · Multi-Class PPE Tracking",
+    technologies: ["Python", "PyTorch", "YOLOv8", "TensorRT FP16", "OpenCV", "GStreamer", "NVIDIA Jetson", "Edge AI", "RTSP"],
+    isFeatured: false,
+    architectureSteps: [
+      "Multi-RTSP Camera Ingestion",
+      "Spatial ROI Geometry Filtering",
+      "TensorRT FP16 Multi-Class Inference",
+      "Temporal Violation Smoothing",
+      "Safety Alert & Audit Logging"
+    ],
+    modalDetails: {
+      problem: "Plant operators in hazardous chemical composition mixing zones at Chakhdoh Plant faced severe safety risks if personnel entered without mandatory PPE (helmets, vests, goggles, gloves). Manual compliance inspections were intermittent and prone to human oversight.",
+      solution: "Engineered a high-throughput edge AI computer vision pipeline streaming multi-camera RTSP feeds directly into TensorRT-accelerated YOLO models with temporal smoothing to eliminate false alarms and generate real-time safety alerts.",
+      architecture: [
+        "Ingestion: Multi-channel RTSP video streams captured via hardware-accelerated GStreamer pipelines.",
+        "Preprocessing: Dynamic perspective cropping and spatial ROI zoning isolating hazardous equipment perimeters.",
+        "Inference: Quantized YOLOv8 PyTorch models exported to ONNX and serialized to TensorRT FP16 engines for sub-40ms edge processing.",
+        "Post-processing: Temporal persistence filtering requiring 3 consecutive non-compliant frames before flagging violations.",
+        "Alerting: Automated event triggers with timestamped visual audit frames dispatched to plant safety managers."
+      ],
+      challenges: [
+        "Extreme lighting reflections off chemical stainless steel storage tanks causing specular false positives.",
+        "Heavy occlusions when technicians worked behind industrial mixers and pipes."
+      ],
+      decisions: [
+        "Employed FP16 TensorRT quantization to maximize frame rates on NVIDIA edge devices without compromising detection accuracy.",
+        "Integrated ROI spatial zoning to restrict inference focus to designated safety-critical boundaries."
+      ],
+      futureWork: "Integrating edge audio alert sirens directly triggered over MQTT upon persistent safety infractions."
+    }
+  },
+  {
     id: 4,
-    title: "PDM 557 Fuze",
+    title: "PDM 557 Fuze for PYRO Plant",
     category: "Commercial Project · Defense QA & Defect Inspection",
     tagline: "Munitions X-ray flaw classification and surface defect detection using deep vision models, morphological filters, and Rust/React stack",
     description: [
-      "Architected an automated non-destructive evaluation (NDE) vision pipeline for munitions X-ray inspection on defense assembly lines for the PDM 557 Fuze program.",
+      "Architected an automated non-destructive evaluation (NDE) vision pipeline for munitions X-ray inspection on defense assembly lines for the PDM 557 Fuze program at PYRO Plant.",
       "Implemented advanced digital image processing algorithms, including morphological filtering, adaptive thresholding, and contour area profiling to isolate micro-structural anomalies.",
       "Trained and fine-tuned custom YOLO26x deep neural networks to accurately classify manufacturing flaws and structural integrity defects with high recall.",
       "Built and deployed a full-stack production plant workstation using high-performance Rust backend services and a modern React JS visual operator inspection dashboard."
@@ -330,7 +345,7 @@ export const initialProjects: Project[] = [
       "Rust Server & React Operator Dashboard"
     ],
     modalDetails: {
-      problem: "Munitions fuze inspection requires 100% defect-free manufacturing assurance. Traditional manual X-ray inspection is fatiguing, slow, and susceptible to missed internal voids or micro-cracks in high-tempo defense production.",
+      problem: "Munitions fuze inspection at PYRO Plant requires 100% defect-free manufacturing assurance. Traditional manual X-ray inspection is fatiguing, slow, and susceptible to missed internal voids or micro-cracks in high-tempo defense production.",
       solution: "Built an autonomous X-ray inspection workstation integrating morphological digital image processing with custom YOLO26x deep learning models, powered by a high-throughput Rust backend and React operator dashboard.",
       architecture: [
         "Radiography Ingestion: High-bit-depth digital X-ray radiographs captured from industrial non-destructive testing equipment.",
