@@ -1,57 +1,37 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, Github, MapPin, Phone, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
-import { submitContact } from '../services/api';
-import { ContactMessage } from '../types';
+import { 
+  Mail, 
+  Linkedin, 
+  Github, 
+  MapPin, 
+  Phone, 
+  FileText, 
+  Copy, 
+  Check, 
+  ExternalLink, 
+  Briefcase, 
+  Clock, 
+  Cpu, 
+  ShieldCheck,
+  Send
+} from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState<ContactMessage & { honeypot?: string }>({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-    honeypot: '',
-  });
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState<{ type: 'idle' | 'success' | 'error'; text: string }>({
-    type: 'idle',
-    text: '',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('pvsairamsaketh@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleCopyPhone = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setFeedback({ type: 'error', text: 'Please fill in all required fields (Name, Email, Message).' });
-      return;
-    }
-
-    if (formData.message.trim().length < 5) {
-      setFeedback({ type: 'error', text: 'Message must be at least 5 characters long.' });
-      return;
-    }
-
-    setLoading(true);
-    setFeedback({ type: 'idle', text: '' });
-
-    try {
-      const res = await submitContact(formData);
-      setFeedback({
-        type: 'success',
-        text: res.message || 'Your message has been sent successfully! I will get back to you shortly.',
-      });
-      setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
-    } catch (err: any) {
-      setFeedback({
-        type: 'error',
-        text: err.message || 'Failed to submit message. Please email pvsairamsaketh@gmail.com directly.',
-      });
-    } finally {
-      setLoading(false);
-    }
+    navigator.clipboard.writeText('+91 9359587816');
+    setCopiedPhone(true);
+    setTimeout(() => setCopiedPhone(false), 2500);
   };
 
   return (
@@ -67,82 +47,159 @@ export const ContactSection: React.FC = () => {
             Let's Discuss Engineering Opportunities
           </h2>
           <p className="text-sm sm:text-base text-theme-secondary mt-2 leading-relaxed">
-            I am available for full-time Computer Vision, Deep Learning, and Edge AI roles where models must perform reliably on real hardware.
+            I am available for full-time Computer Vision, Deep Learning, and Edge AI roles where models must perform reliably on real hardware under field constraints.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Direct Channels & Verified Coordinates */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="card-surface p-6 sm:p-7 space-y-5">
-              <h3 className="text-xs font-semibold text-theme-text uppercase tracking-wider font-mono pb-2 border-b border-theme-border flex items-center justify-between">
-                <span>Direct Contact Channels</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              </h3>
+          {/* Left Column: Direct Interactive Channels */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="card-surface p-6 sm:p-8 space-y-6">
+              
+              <div className="flex items-center justify-between pb-3 border-b border-theme-border">
+                <h3 className="text-xs font-semibold text-theme-text uppercase tracking-wider font-mono flex items-center gap-2">
+                  <span>Direct Communication Channels</span>
+                </h3>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-500 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Available for Hire</span>
+                </span>
+              </div>
 
-              <div className="space-y-3 text-xs sm:text-sm">
-                <a
-                  href="mailto:pvsairamsaketh@gmail.com"
-                  className="flex items-center space-x-3 p-3.5 rounded-xl bg-theme-elevated border border-theme-border text-theme-secondary hover:text-theme-accent hover:border-theme-accent/50 transition-all duration-200 group"
-                >
-                  <div className="p-2 rounded-lg bg-theme-card border border-theme-border text-theme-accent group-hover:border-theme-accent/50">
-                    <Mail className="w-4 h-4" />
+              {/* Email Card with 1-Click Copy and Mailto */}
+              <div className="p-4 rounded-xl bg-theme-elevated border border-theme-border hover:border-theme-accent/50 transition-all duration-200 group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3 truncate">
+                    <div className="p-2.5 rounded-lg bg-theme-card border border-theme-border text-theme-accent">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="truncate">
+                      <span className="text-[10px] font-mono text-theme-muted block uppercase">Primary Email</span>
+                      <a 
+                        href="mailto:pvsairamsaketh@gmail.com"
+                        className="text-sm font-semibold text-theme-text hover:text-theme-accent transition-colors truncate block"
+                      >
+                        pvsairamsaketh@gmail.com
+                      </a>
+                    </div>
                   </div>
-                  <div className="truncate">
-                    <span className="text-[10px] font-mono text-theme-muted block uppercase">Email</span>
-                    <span className="font-medium text-theme-text group-hover:text-theme-accent">pvsairamsaketh@gmail.com</span>
-                  </div>
-                </a>
-
-                <a
-                  href="tel:+919359587816"
-                  className="flex items-center space-x-3 p-3.5 rounded-xl bg-theme-elevated border border-theme-border text-theme-secondary hover:text-theme-accent hover:border-theme-accent/50 transition-all duration-200 group"
-                >
-                  <div className="p-2 rounded-lg bg-theme-card border border-theme-border text-theme-accent group-hover:border-theme-accent/50">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono text-theme-muted block uppercase">Phone</span>
-                    <span className="font-medium text-theme-text group-hover:text-theme-accent">+91 9359587816</span>
-                  </div>
-                </a>
-
-                <div className="flex items-center space-x-3 p-3.5 rounded-xl bg-theme-elevated border border-theme-border text-theme-secondary">
-                  <div className="p-2 rounded-lg bg-theme-card border border-theme-border text-theme-accent">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono text-theme-muted block uppercase">Location</span>
-                    <span className="font-medium text-theme-text">Nagpur, Maharashtra, India</span>
+                  <div className="flex items-center space-x-1.5 flex-shrink-0 ml-2">
+                    <button
+                      onClick={handleCopyEmail}
+                      className="p-2 rounded-lg border border-theme-border bg-theme-card text-theme-secondary hover:text-theme-accent hover:border-theme-accent/40 transition-all text-xs font-medium flex items-center gap-1 shadow-xs"
+                      title="Copy email to clipboard"
+                    >
+                      {copiedEmail ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <span className="text-[10px] font-mono text-emerald-500 hidden sm:inline">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span className="text-[10px] font-mono hidden sm:inline">Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <a
+                      href="mailto:pvsairamsaketh@gmail.com?subject=Interview%20Inquiry%20-%20Computer%20Vision%20Engineer"
+                      className="p-2 rounded-lg border border-theme-border bg-theme-card text-theme-secondary hover:text-theme-accent hover:border-theme-accent/40 transition-all text-xs shadow-xs"
+                      title="Open default email app"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
               </div>
 
-              {/* Verified Profiles */}
+              {/* Phone Card with 1-Click Copy and Call */}
+              <div className="p-4 rounded-xl bg-theme-elevated border border-theme-border hover:border-theme-accent/50 transition-all duration-200 group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2.5 rounded-lg bg-theme-card border border-theme-border text-theme-accent">
+                      <Phone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono text-theme-muted block uppercase">Direct Phone / Mobile</span>
+                      <a 
+                        href="tel:+919359587816"
+                        className="text-sm font-semibold text-theme-text hover:text-theme-accent transition-colors"
+                      >
+                        +91 9359587816
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1.5 flex-shrink-0">
+                    <button
+                      onClick={handleCopyPhone}
+                      className="p-2 rounded-lg border border-theme-border bg-theme-card text-theme-secondary hover:text-theme-accent hover:border-theme-accent/40 transition-all text-xs font-medium flex items-center gap-1 shadow-xs"
+                      title="Copy phone to clipboard"
+                    >
+                      {copiedPhone ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          <span className="text-[10px] font-mono text-emerald-500 hidden sm:inline">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span className="text-[10px] font-mono hidden sm:inline">Copy</span>
+                        </>
+                      )}
+                    </button>
+                    <a
+                      href="tel:+919359587816"
+                      className="p-2 rounded-lg border border-theme-border bg-theme-card text-theme-secondary hover:text-theme-accent hover:border-theme-accent/40 transition-all text-xs shadow-xs"
+                      title="Call direct"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location & Relocation Info */}
+              <div className="p-4 rounded-xl bg-theme-elevated border border-theme-border flex items-center space-x-3">
+                <div className="p-2.5 rounded-lg bg-theme-card border border-theme-border text-theme-accent">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-theme-muted block uppercase">Current Location</span>
+                  <span className="text-sm font-semibold text-theme-text">Nagpur, Maharashtra, India</span>
+                  <span className="text-[11px] text-theme-secondary block mt-0.5">
+                    Open to Relocation (India & Global / Remote)
+                  </span>
+                </div>
+              </div>
+
+              {/* Verified Profiles Row */}
               <div className="pt-2">
-                <h4 className="text-[11px] font-mono text-theme-secondary uppercase mb-2.5 font-semibold">
-                  Professional Profiles:
-                </h4>
                 <div className="grid grid-cols-2 gap-3">
                   <a
                     href="https://linkedin.com/in/pvsaketh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2.5 p-3 rounded-xl bg-theme-elevated border border-theme-border text-xs font-semibold text-theme-text hover:border-theme-accent/50 hover:text-theme-accent transition-all duration-200 shadow-xs"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-theme-elevated border border-theme-border text-xs font-semibold text-theme-text hover:border-theme-accent/50 hover:text-theme-accent hover:-translate-y-0.5 transition-all duration-200 shadow-xs group"
                   >
-                    <Linkedin className="w-4 h-4 text-theme-accent" />
-                    <span>LinkedIn</span>
+                    <div className="flex items-center space-x-2.5">
+                      <Linkedin className="w-4 h-4 text-theme-accent" />
+                      <span>LinkedIn Profile</span>
+                    </div>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
                   </a>
 
                   <a
                     href="https://github.com/PVSaketh2003"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2.5 p-3 rounded-xl bg-theme-elevated border border-theme-border text-xs font-semibold text-theme-text hover:border-theme-accent/50 hover:text-theme-accent transition-all duration-200 shadow-xs"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-theme-elevated border border-theme-border text-xs font-semibold text-theme-text hover:border-theme-accent/50 hover:text-theme-accent hover:-translate-y-0.5 transition-all duration-200 shadow-xs group"
                   >
-                    <Github className="w-4 h-4 text-theme-accent" />
-                    <span>GitHub</span>
+                    <div className="flex items-center space-x-2.5">
+                      <Github className="w-4 h-4 text-theme-accent" />
+                      <span>GitHub Repositories</span>
+                    </div>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </div>
               </div>
@@ -150,120 +207,79 @@ export const ContactSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Django REST API Form */}
-          <div className="lg:col-span-7">
-            <div className="card-surface p-6 sm:p-8">
+          {/* Right Column: Recruiter Summary & Action Portal */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="card-surface p-6 sm:p-8 space-y-6">
               
-              <h3 className="text-xs font-semibold text-theme-text uppercase tracking-wider font-mono pb-2 mb-6 border-b border-theme-border">
-                Send a Direct Message (Django REST API + SMTP)
-              </h3>
+              <div className="flex items-center justify-between pb-3 border-b border-theme-border">
+                <h3 className="text-xs font-semibold text-theme-text uppercase tracking-wider font-mono flex items-center gap-2">
+                  <span>Recruiter Quick Coordinates</span>
+                </h3>
+                <span className="text-[10px] font-mono text-theme-muted uppercase">Verified Credentials</span>
+              </div>
 
-              {feedback.type === 'success' && (
-                <div className="mb-6 p-4 rounded-xl bg-theme-elevated border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm flex items-start space-x-3 animate-fade-in shadow-xs">
-                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-emerald-500" />
-                  <span>{feedback.text}</span>
-                </div>
-              )}
-
-              {feedback.type === 'error' && (
-                <div className="mb-6 p-4 rounded-xl bg-theme-elevated border border-rose-500/40 text-rose-600 dark:text-rose-400 text-xs sm:text-sm flex items-start space-x-3 animate-fade-in shadow-xs">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-rose-500" />
-                  <span>{feedback.text}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-                {/* Honeypot field for anti-spam bots */}
-                <input
-                  type="text"
-                  name="honeypot"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={formData.honeypot || ''}
-                  onChange={handleChange}
-                  className="hidden"
-                  aria-hidden="true"
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-theme-text font-medium mb-1.5">
-                      Your Name <span className="text-theme-accent">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. Recruiters / Engineering Leads"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-theme-elevated border border-theme-border text-theme-text placeholder-theme-textMuted focus:outline-none focus:border-theme-accent transition-colors shadow-xs"
-                    />
+              {/* Structured Key Fast Facts for Technical Recruiters */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                
+                <div className="p-3.5 rounded-xl bg-theme-elevated border border-theme-border space-y-1">
+                  <div className="flex items-center space-x-2 text-theme-accent font-mono text-[11px] font-semibold uppercase">
+                    <Briefcase className="w-3.5 h-3.5" />
+                    <span>Current Role</span>
                   </div>
+                  <div className="font-bold text-sm text-theme-text">Executive CV Engineer</div>
+                  <div className="text-[11px] text-theme-secondary">Solar Industries India Ltd (1.5 Years)</div>
+                </div>
 
-                  <div>
-                    <label className="block text-theme-text font-medium mb-1.5">
-                      Your Email <span className="text-theme-accent">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="hiring@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-theme-elevated border border-theme-border text-theme-text placeholder-theme-textMuted focus:outline-none focus:border-theme-accent transition-colors shadow-xs"
-                    />
+                <div className="p-3.5 rounded-xl bg-theme-elevated border border-theme-border space-y-1">
+                  <div className="flex items-center space-x-2 text-theme-accent font-mono text-[11px] font-semibold uppercase">
+                    <Cpu className="w-3.5 h-3.5" />
+                    <span>Specialization</span>
                   </div>
+                  <div className="font-bold text-sm text-theme-text">Edge AI & Computer Vision</div>
+                  <div className="text-[11px] text-theme-secondary">NVIDIA Jetson · TensorRT · UAV</div>
                 </div>
 
-                <div>
-                  <label className="block text-theme-text font-medium mb-1.5">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Computer Vision / Edge AI Engineering Opportunity"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-theme-elevated border border-theme-border text-theme-text placeholder-theme-textMuted focus:outline-none focus:border-theme-accent transition-colors shadow-xs"
-                  />
+                <div className="p-3.5 rounded-xl bg-theme-elevated border border-theme-border space-y-1">
+                  <div className="flex items-center space-x-2 text-theme-accent font-mono text-[11px] font-semibold uppercase">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>Target Roles</span>
+                  </div>
+                  <div className="font-bold text-sm text-theme-text">Full-Time Engineering</div>
+                  <div className="text-[11px] text-theme-secondary">Computer Vision · Deep Learning · Edge AI</div>
                 </div>
 
-                <div>
-                  <label className="block text-theme-text font-medium mb-1.5">
-                    Message <span className="text-theme-accent">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Describe your inquiry, project scope, or opportunity..."
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-theme-elevated border border-theme-border text-theme-text placeholder-theme-textMuted focus:outline-none focus:border-theme-accent transition-colors resize-none shadow-xs"
-                  />
+                <div className="p-3.5 rounded-xl bg-theme-elevated border border-theme-border space-y-1">
+                  <div className="flex items-center space-x-2 text-theme-accent font-mono text-[11px] font-semibold uppercase">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Academics & Research</span>
+                  </div>
+                  <div className="font-bold text-sm text-theme-text">B.Tech CSE (9.33 / 10)</div>
+                  <div className="text-[11px] text-theme-secondary">SRM University · ICCI Published</div>
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="btn-primary w-full py-3 text-xs font-semibold disabled:opacity-50 group shadow-md"
+              </div>
+
+              {/* Direct Recruiter Action Buttons */}
+              <div className="space-y-3 pt-2">
+                <a
+                  href="mailto:pvsairamsaketh@gmail.com?subject=Interview%20Invitation%20-%20PV%20Sairam%20Saketh&body=Hello%20Sairam,%0A%0AWe%20reviewed%20your%20portfolio%20and%20experience%20at%20Solar%20Industries%20India%20Limited.%20We%20would%20like%20to%20discuss%20an%20engineering%20opportunity%20with%20our%20team.%0A%0ABest%20regards,"
+                  className="btn-primary w-full py-3.5 text-xs font-semibold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
                 >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Sending Message via SMTP...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      <span>Send Message to PV Sairam Saketh</span>
-                    </>
-                  )}
-                </button>
-              </form>
+                  <Send className="w-4 h-4" />
+                  <span>Send Direct Email to pvsairamsaketh@gmail.com</span>
+                </a>
+
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 px-4 rounded-xl border border-theme-border bg-theme-elevated hover:bg-theme-card hover:border-theme-accent/50 text-theme-text font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200 shadow-sm"
+                >
+                  <FileText className="w-4 h-4 text-theme-accent" />
+                  <span>Download Verified Resume (PDF)</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                </a>
+              </div>
 
             </div>
           </div>
