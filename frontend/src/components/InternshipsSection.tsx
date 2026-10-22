@@ -44,8 +44,8 @@ export const InternshipsSection: React.FC = () => {
                       <Calendar className="w-3 h-3 text-theme-accent" />
                       <span>{internship.duration}</span>
                     </span>
-                    <span className="inline-flex items-center space-x-1 text-[11px] text-theme-muted">
-                      <MapPin className="w-3 h-3" />
+                    <span className="inline-flex items-center space-x-1 text-[11px] text-slate-600 dark:text-slate-400 font-medium">
+                      <MapPin className="w-3 h-3 text-theme-accent" />
                       <span>{internship.location}</span>
                     </span>
                   </div>

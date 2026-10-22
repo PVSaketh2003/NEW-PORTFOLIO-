@@ -75,7 +75,7 @@ export const ContactSection: React.FC = () => {
                       <Mail className="w-4 h-4" />
                     </div>
                     <div className="truncate">
-                      <span className="text-[10px] font-mono text-theme-muted block uppercase">Primary Email</span>
+                      <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-slate-400 block uppercase tracking-wider">Primary Email</span>
                       <a 
                         href="mailto:pvsairamsaketh@gmail.com"
                         className="text-sm font-semibold text-theme-text hover:text-theme-accent transition-colors truncate block"
@@ -121,7 +121,7 @@ export const ContactSection: React.FC = () => {
                       <Phone className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono text-theme-muted block uppercase">Direct Phone / Mobile</span>
+                      <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-slate-400 block uppercase tracking-wider">Direct Phone / Mobile</span>
                       <a 
                         href="tel:+919359587816"
                         className="text-sm font-semibold text-theme-text hover:text-theme-accent transition-colors"
@@ -165,7 +165,7 @@ export const ContactSection: React.FC = () => {
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-theme-muted block uppercase">Current Location</span>
+                  <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-slate-400 block uppercase tracking-wider">Current Location</span>
                   <span className="text-sm font-semibold text-theme-text">Nagpur, Maharashtra, India</span>
                   <span className="text-[11px] text-theme-secondary block mt-0.5">
                     Open to Relocation (India & Global / Remote)
@@ -215,7 +215,7 @@ export const ContactSection: React.FC = () => {
                 <h3 className="text-xs font-semibold text-theme-text uppercase tracking-wider font-mono flex items-center gap-2">
                   <span>Recruiter Quick Coordinates</span>
                 </h3>
-                <span className="text-[10px] font-mono text-theme-muted uppercase">Verified Credentials</span>
+                <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Verified Credentials</span>
               </div>
 
               {/* Structured Key Fast Facts for Technical Recruiters */}

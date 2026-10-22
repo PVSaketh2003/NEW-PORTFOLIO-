@@ -66,7 +66,7 @@ export const SkillsSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-theme-border text-[11px] font-mono text-theme-muted flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t border-theme-border text-[11px] font-mono text-slate-600 dark:text-slate-400 font-medium flex items-center justify-between">
                   <span>Verified Resume Toolchain</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-theme-accent group-hover:scale-125 transition-transform" />
                 </div>

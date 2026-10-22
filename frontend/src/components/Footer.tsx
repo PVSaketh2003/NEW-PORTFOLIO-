@@ -28,8 +28,8 @@ export const Footer: React.FC = () => {
               <Logo size={28} />
               <span className="font-bold text-sm text-theme-text">PV Sairam Saketh</span>
             </div>
-            <span className="text-theme-muted hidden sm:inline-block">·</span>
-            <span className="text-theme-secondary text-xs">
+            <span className="text-slate-400 dark:text-slate-500 hidden sm:inline-block">·</span>
+            <span className="text-slate-600 dark:text-slate-300 text-xs font-medium">
               Computer Vision & Edge AI Engineer (Solar Industries India Limited)
             </span>
           </div>
@@ -52,8 +52,8 @@ export const Footer: React.FC = () => {
         {/* Bottom Footer Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           
-          <div className="text-theme-muted text-center sm:text-left">
-            © {new Date().getFullYear()} <strong className="text-theme-text font-semibold">PV Sairam Saketh</strong>. 
+          <div className="text-slate-600 dark:text-slate-400 text-center sm:text-left">
+            © {new Date().getFullYear()} <strong className="text-slate-900 dark:text-slate-100 font-semibold">PV Sairam Saketh</strong>. 
             All rights reserved. Verified to resume specifications.
           </div>
 

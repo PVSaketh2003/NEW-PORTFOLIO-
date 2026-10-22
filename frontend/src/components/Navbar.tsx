@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
               <span className="text-sm sm:text-base font-semibold text-theme-text tracking-tight group-hover:text-theme-accent transition-colors">
                 PV Sairam Saketh
               </span>
-              <span className="text-[10px] font-mono text-theme-muted hidden sm:inline-block">
+              <span className="text-[11px] font-mono font-medium text-sky-600 dark:text-sky-400 hidden sm:inline-block tracking-wide">
                 Computer Vision & Edge AI
               </span>
             </div>

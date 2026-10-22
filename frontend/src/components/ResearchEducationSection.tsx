@@ -27,7 +27,7 @@ export const ResearchEducationSection: React.FC = () => {
                 <span className="text-[10px] font-mono text-theme-accent uppercase bg-theme-elevated px-2.5 py-1 rounded-md border border-theme-border font-semibold">
                   Peer-Reviewed Conference Paper
                 </span>
-                <span className="text-xs font-mono text-theme-muted">
+                <span className="text-xs font-mono font-semibold text-slate-600 dark:text-slate-400">
                   ICCI
                 </span>
               </div>

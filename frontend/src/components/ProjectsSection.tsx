@@ -97,7 +97,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                           {step}
                         </span>
                         {sIdx < arr.length - 1 && (
-                          <span className="text-theme-muted text-xs">→</span>
+                          <span className="text-theme-accent text-xs font-bold">→</span>
                         )}
                       </React.Fragment>
                     ))}
@@ -211,7 +211,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                     {project.category}
                   </span>
                   {project.metrics && (
-                    <span className="text-[10px] font-mono text-theme-muted truncate max-w-[140px]">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 font-medium truncate max-w-[140px]">
                       {project.metrics}
                     </span>
                   )}
@@ -242,7 +242,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="text-[10px] font-mono text-theme-muted self-center">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 font-medium self-center">
                       +{project.technologies.length - 4}
                     </span>
                   )}
@@ -259,7 +259,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
                       <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
                     </button>
                   ) : (
-                    <span className="text-xs font-mono text-theme-muted">Resume Verified</span>
+                    <span className="text-xs font-mono text-slate-600 dark:text-slate-400 font-medium">Resume Verified</span>
                   )}
 
                   <div className="flex items-center space-x-2">
@@ -389,7 +389,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) =>
 
               {/* Modal Footer Links */}
               <div className="pt-4 border-t border-theme-border flex items-center justify-between">
-                <span className="text-xs font-mono text-theme-muted">
+                <span className="text-xs font-mono text-slate-600 dark:text-slate-400 font-medium">
                   PV Sairam Saketh Portfolio
                 </span>
                 <div className="flex items-center space-x-3">
